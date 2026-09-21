@@ -76,9 +76,9 @@
                                                         <constraint firstAttribute="height" constant="20" id="CgW-fv-xEB"/>
                                                         <constraint firstAttribute="width" constant="13" id="LgR-Wb-JpC"/>
                                                     </constraints>
-                                                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="4tl-Ng-hyq"/>
+                                                    <stepperCell key="cell" continuous="YES" alignment="left" minValue="50" maxValue="100" id="4tl-Ng-hyq"/>
                                                     <connections>
-                                                        <binding destination="qK6-EM-YZH" name="value" keyPath="self.maxChargeNum" id="cm5-lb-m9T"/>
+                                                        <action selector="maxChargeAction:" target="qK6-EM-YZH" id="cm5-lb-m9T"/>
                                                     </connections>
                                                 </stepper>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" preferredMaxLayoutWidth="30" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVz-So-HqI" userLabel="Min Charge ">
@@ -94,7 +94,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="qK6-EM-YZH" name="value" keyPath="self.minChargeNum" id="nnI-Ek-gCl"/>
+                                                        <action selector="minChargeAction:" target="qK6-EM-YZH" id="nnI-Ek-gCl"/>
                                                     </connections>
                                                 </textField>
                                                 <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zNI-F1-3zH" userLabel="Max Text">
@@ -127,9 +127,9 @@
                                                         <constraint firstAttribute="height" constant="20" id="1ax-0q-HUH"/>
                                                         <constraint firstAttribute="width" constant="13" id="G5f-Ks-aX5"/>
                                                     </constraints>
-                                                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="MX2-oM-Nxs"/>
+                                                    <stepperCell key="cell" continuous="YES" alignment="left" minValue="20" maxValue="100" id="MX2-oM-Nxs"/>
                                                     <connections>
-                                                        <binding destination="qK6-EM-YZH" name="value" keyPath="self.minChargeNum" id="3y9-Yj-f6y"/>
+                                                        <action selector="minChargeAction:" target="qK6-EM-YZH" id="3y9-Yj-f6y"/>
                                                     </connections>
                                                 </stepper>
                                                 <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" preferredMaxLayoutWidth="16" translatesAutoresizingMaskIntoConstraints="NO" id="cpE-XY-Cm8" userLabel="Min %">
@@ -149,9 +149,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="1lj-SG-3et"/>
                                                     </constraints>
-                                                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="80" tickMarkPosition="above" sliderType="linear" id="q5H-ZA-2Hz"/>
+                                                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="50" maxValue="100" doubleValue="80" tickMarkPosition="above" sliderType="linear" id="q5H-ZA-2Hz"/>
                                                     <connections>
-                                                        <binding destination="qK6-EM-YZH" name="value" keyPath="self.maxChargeNum" id="D0u-LQ-jVe"/>
+                                                        <action selector="maxChargeAction:" target="qK6-EM-YZH" id="D0u-LQ-jVe"/>
                                                     </connections>
                                                 </slider>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVr-RT-V0O" userLabel="Max Charge">
@@ -167,7 +167,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <binding destination="qK6-EM-YZH" name="value" keyPath="self.maxChargeNum" id="KDY-di-0UJ"/>
+                                                        <action selector="maxChargeAction:" target="qK6-EM-YZH" id="KDY-di-0UJ"/>
                                                     </connections>
                                                 </textField>
                                                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GpU-47-1gg" userLabel="Min Slider">
@@ -175,9 +175,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="8u8-ge-GfV"/>
                                                     </constraints>
-                                                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="70" tickMarkPosition="above" sliderType="linear" id="zVa-Aa-vAN"/>
+                                                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="20" maxValue="100" doubleValue="70" tickMarkPosition="above" sliderType="linear" id="zVa-Aa-vAN"/>
                                                     <connections>
-                                                        <binding destination="qK6-EM-YZH" name="value" keyPath="self.minChargeNum" id="zJb-gs-jH2"/>
+                                                        <action selector="minChargeAction:" target="qK6-EM-YZH" id="zJb-gs-jH2"/>
                                                     </connections>
                                                 </slider>
                                                 <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xbB-Gg-5TD" userLabel="Min Text">
@@ -406,6 +406,12 @@ Gw
                         <outlet property="adapterSleepSwitch" destination="ueg-wa-VAZ" id="3Lx-ht-YnK"/>
                         <outlet property="autostartSwitch" destination="Wvm-DK-CLx" id="76Y-hQ-vd0"/>
                         <outlet property="magSafeSyncSwitch" destination="Sq5-KE-c3T" id="csD-RV-ou4"/>
+                        <outlet property="maxChargeSlider" destination="9gz-yn-SNi" id="PSx-HW-ib4"/>
+                        <outlet property="maxChargeStepper" destination="nq7-TF-yL4" id="opV-M0-dZn"/>
+                        <outlet property="maxChargeTextField" destination="jVr-RT-V0O" id="9DV-hv-mFf"/>
+                        <outlet property="minChargeSlider" destination="GpU-47-1gg" id="L6L-HR-FzA"/>
+                        <outlet property="minChargeStepper" destination="BRS-K5-tS0" id="4kY-hE-34q"/>
+                        <outlet property="minChargeTextField" destination="UVz-So-HqI" id="g2R-cz-ejW"/>
                         <outlet property="powerTab" destination="IMi-pw-cwy" id="9fR-1S-DaG"/>
                         <outlet property="tabView" destination="NXG-fh-uCo" id="DNX-YP-mN9"/>
                         <outlet property="userTab" destination="r6x-U7-0zu" id="6f2-AH-ze8"/>

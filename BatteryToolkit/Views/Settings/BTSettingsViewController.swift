@@ -20,80 +20,24 @@ internal final class BTSettingsViewController: NSViewController {
     
     @IBOutlet private var minChargeTextField: NSTextField!
     @IBOutlet private var minChargeSlider: NSSlider!
+    @IBOutlet private var minChargeStepper: NSStepper!
     
     @IBOutlet private var maxChargeTextField: NSTextField!
     @IBOutlet private var maxChargeSlider: NSSlider!
+    @IBOutlet private var maxChargeStepper: NSStepper!
     
     @IBOutlet private var adapterSleepSwitch: NSSwitch!
     @IBOutlet private var magSafeSyncSwitch: NSSwitch!
     
     private var minChargeVal = BTSettingsInfo.Defaults.minCharge
-    @objc private dynamic var minChargeNum: NSNumber {
-        get {
-            return NSNumber(value: self.minChargeVal)
-        }
-        
-        set {
-            let value = newValue.intValue
-            //
-            // For clamping, the assignment needs to be async, because otherwise
-            // the source control does not get notified of the update. We cannot
-            // change the values of the UI controls directly, because this
-            // caues the NSSlider to sometimes visually desync with its value.
-            //
-            if value < BTSettingsInfo.Bounds.minChargeMin {
-                Task {
-                    self.minChargeNum = NSNumber(
-                        value: BTSettingsInfo.Bounds.minChargeMin
-                    )
-                }
-            } else if value > 100 {
-                Task {
-                    self.minChargeNum = NSNumber(value: 100)
-                }
-            } else {
-                self.minChargeVal = UInt8(value)
-                //
-                // Clamp the maximum charge to be at least the minimum charge.
-                //
-                if self.maxChargeVal < self.minChargeVal {
-                    self.maxChargeNum = self.minChargeNum
-                }
-            }
-        }
-    }
-    
     private var maxChargeVal = BTSettingsInfo.Defaults.maxCharge
-    @objc private dynamic var maxChargeNum: NSNumber {
-        get {
-            return NSNumber(value: self.maxChargeVal)
-        }
-        
-        set {
-            let value = newValue.intValue
-            //
-            // See minChargeNum for an explanation.
-            //
-            if value < BTSettingsInfo.Bounds.maxChargeMin {
-                Task {
-                    self.maxChargeNum = NSNumber(
-                        value: BTSettingsInfo.Bounds.maxChargeMin
-                    )
-                }
-            } else if value > 100 {
-                Task {
-                    self.maxChargeNum = NSNumber(value: 100)
-                }
-            } else {
-                self.maxChargeVal = UInt8(value)
-                //
-                // Clamp the maximum charge to be at least the minimum charge.
-                //
-                if self.maxChargeVal < self.minChargeVal {
-                    self.minChargeNum = self.maxChargeNum
-                }
-            }
-        }
+
+    @IBAction private func minChargeAction(_ sender: NSControl) {
+        self.setMinCharge(value: sender.integerValue)
+    }
+
+    @IBAction private func maxChargeAction(_ sender: NSControl) {
+        self.setMaxCharge(value: sender.integerValue)
     }
     
     @IBAction private func cancelButtonAction(_: NSButton) {
@@ -119,8 +63,8 @@ internal final class BTSettingsViewController: NSViewController {
         }
         
         let settings: [String: NSObject & Sendable] = [
-            BTSettingsInfo.Keys.minCharge: self.minChargeNum,
-            BTSettingsInfo.Keys.maxCharge: self.maxChargeNum,
+            BTSettingsInfo.Keys.minCharge: NSNumber(value: self.minChargeVal),
+            BTSettingsInfo.Keys.maxCharge: NSNumber(value: self.maxChargeVal),
             BTSettingsInfo.Keys.adapterSleep: NSNumber(
                 value: self.adapterSleepSwitch.state == .off
             ),
@@ -191,11 +135,47 @@ internal final class BTSettingsViewController: NSViewController {
     }
     
     private func setMinCharge(value: Int) {
-        self.minChargeNum = NSNumber(value: value)
+        let value = Swift.min(
+            Swift.max(value, Int(BTSettingsInfo.Bounds.minChargeMin)),
+            100
+        )
+        self.minChargeVal = UInt8(value)
+
+        if self.maxChargeVal < self.minChargeVal {
+            self.maxChargeVal = self.minChargeVal
+            self.updateMaxChargeControls()
+        }
+
+        self.updateMinChargeControls()
     }
     
     private func setMaxCharge(value: Int) {
-        self.maxChargeNum = NSNumber(value: value)
+        let value = Swift.min(
+            Swift.max(value, Int(BTSettingsInfo.Bounds.maxChargeMin)),
+            100
+        )
+        self.maxChargeVal = UInt8(value)
+
+        if self.maxChargeVal < self.minChargeVal {
+            self.minChargeVal = self.maxChargeVal
+            self.updateMinChargeControls()
+        }
+
+        self.updateMaxChargeControls()
+    }
+
+    private func updateMinChargeControls() {
+        let value = Int(self.minChargeVal)
+        self.minChargeTextField.integerValue = value
+        self.minChargeSlider.integerValue = value
+        self.minChargeStepper.integerValue = value
+    }
+
+    private func updateMaxChargeControls() {
+        let value = Int(self.maxChargeVal)
+        self.maxChargeTextField.integerValue = value
+        self.maxChargeSlider.integerValue = value
+        self.maxChargeStepper.integerValue = value
     }
     
     private func setAdapterSleep(value: Bool) {
