@@ -8,6 +8,12 @@
 
 -----
 
+> [!NOTE]
+> This is a community-maintained fork of
+> [mhaeuser/Battery-Toolkit](https://github.com/mhaeuser/Battery-Toolkit),
+> focused on restoring compatibility with macOS 27. Version 1.9 is currently
+> under development and should be tested before it is used as a daily driver.
+
 # Features
 
 ## Limits battery charge to an upper limit
@@ -49,19 +55,13 @@ The Battery Toolkit "Commands" menu and its menu bar extra allow you to issue va
 > Battery Toolkit currently only supports Apple Silicon Macs [#15](https://github.com/mhaeuser/Battery-Toolkit/issues/15)
 
 ### Manual Install
-1. Go to the GitHub [releases](https://github.com/mhaeuser/Battery-Toolkit/releases/latest) page
+1. Go to this fork's GitHub [releases](https://github.com/Paintaviolin/Battery-Toolkit-macOS-27/releases) page
 2. Download the latest non-dSYM build (i.e., `Battery-Toolkit-X.Y.zip`)
 3. Unzip the archive
 4. Drag `Battery Toolkit.app` into your Applications folder
 
-### Install via Homebrew :beer:
-1. Install [Homebrew](https://brew.sh) if you haven't already
-2. Open Terminal and run `brew tap mhaeuser/mhaeuser`
-3. Run `brew install battery-toolkit`
-
-You may want to add the `--no-quarantine` flag onto the end of the install command to bypass Gatekeeper more conveniently, but beware the potential security risks of doing so.
-
-Otherwise, follow the steps mentioned below.
+There is no Homebrew formula for the macOS 27 fork yet. The formula for the
+archived upstream project installs the older, incompatible build.
 
 ### Opening the App
 
@@ -116,6 +116,12 @@ Note that sleep should usually be disabled when the power adapter is disabled, a
 
 * Based on IOPowerManagement events to minimize resource usage, especially when not connected to power
 * Support for macOS Ventura daemons and login items for a more reliable experience
+* Uses the legacy CHTE/CH0C SMC controls on firmware that still exposes them
+* On macOS 27, uses macOS's firmware-backed Manual Charge Limit through
+  PowerUIAgent preferences because the replacement SMC keys require an Apple
+  private entitlement
+* Saves and restores the user's previous system charge-limit setting when the
+  app stops controlling charging
 
 ## Security
 * Privileged operations are authenticated by the daemon
@@ -125,6 +131,8 @@ Note that sleep should usually be disabled when the power adapter is disabled, a
 # Credits
 * Icon based on [reference icon by Streamline](https://seekicon.com/free-icon/rechargable-battery_1)
 * README overhauled by [rogue](https://github.com/realrogue)
+* macOS 27 charge-limit research and portions of the implementation from
+  [Ampere](https://github.com/az-code-lab/ampere), used under the MIT License
 
 # Donate
 For various reasons, I will not accept personal donations. However, if you would like to support my work with the [Kinderschutzbund Kaiserslautern-Kusel](https://www.kinderschutzbund-kaiserslautern.de/) child protection association, you may donate [here](https://www.kinderschutzbund-kaiserslautern.de/helfen-sie-mit/spenden/).

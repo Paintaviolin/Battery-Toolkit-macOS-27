@@ -17,20 +17,27 @@ public extension SMCComm {
 
         private static var chargeKey = 0
         private static var adapterKey = 0
+        private(set) static var usesNativeChargeLimit = false
 
         static func supported() -> Bool {
             //
-            // Ensure all required SMC keys are present and well-formed.
+            // Prefer the legacy SMC charging control where it is available.
+            // Recent firmware removed those keys, so fall back to macOS's
+            // firmware-backed Manual Charge Limit.
             //
             let chargeKey = self.chargeKeys.firstIndex { key in
                 SMCComm.keySupported(keyInfo: key.keyInfo)
             }
-            guard let chargeKey = chargeKey else {
-                return false;
+            if let chargeKey {
+                self.chargeKey = chargeKey
+                self.usesNativeChargeLimit = false
+            } else {
+                guard NativeChargeLimit.available else {
+                    return false
+                }
+                self.usesNativeChargeLimit = true
             }
-            self.chargeKey = chargeKey
-            
-            
+
             let adapterKey = self.adapterKeys.firstIndex { key in
                 SMCComm.keySupported(keyInfo: key.keyInfo)
             }
@@ -42,21 +49,33 @@ public extension SMCComm {
             return true
         }
 
-        static func enableCharging() -> Bool {
+        static func enableCharging(target: UInt8) -> Bool {
+            if self.usesNativeChargeLimit {
+                return NativeChargeLimit.engage(target: target)
+            }
+
             return SMCComm.writeKey(
                 key: self.chargeKeys[self.chargeKey].keyInfo.key,
                 bytes: self.chargeKeys[self.chargeKey].onBytes
             )
         }
 
-        static func disableCharging() -> Bool {
+        static func disableCharging(at percent: UInt8) -> Bool {
+            if self.usesNativeChargeLimit {
+                return NativeChargeLimit.engage(target: percent)
+            }
+
             return SMCComm.writeKey(
                 key: self.chargeKeys[self.chargeKey].keyInfo.key,
                 bytes: self.chargeKeys[self.chargeKey].offBytes
             )
         }
 
-        static func isChargingDisabled() -> Bool {
+        static func isChargingDisabled(at percent: UInt8) -> Bool {
+            if self.usesNativeChargeLimit {
+                return NativeChargeLimit.isHolding(at: percent)
+            }
+
             let value = SMCComm.readKey(
                 key: self.chargeKeys[self.chargeKey].keyInfo.key,
                 dataSize: self.chargeKeys[self.chargeKey].onBytes.count
@@ -66,6 +85,17 @@ public extension SMCComm {
             }
 
             return value != self.chargeKeys[self.chargeKey].onBytes
+        }
+
+        static func restoreCharging() -> Bool {
+            if self.usesNativeChargeLimit {
+                return NativeChargeLimit.release()
+            }
+
+            return SMCComm.writeKey(
+                key: self.chargeKeys[self.chargeKey].keyInfo.key,
+                bytes: self.chargeKeys[self.chargeKey].onBytes
+            )
         }
 
         static func enablePowerAdapter() -> Bool {

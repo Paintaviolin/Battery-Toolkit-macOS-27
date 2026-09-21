@@ -12,7 +12,8 @@ internal enum BTPowerState {
     private static var powerDisabled = false
 
     static func initState() {
-        let chargingDisabled = SMCComm.Power.isChargingDisabled()
+        let (percent, _, _) = self.getPercentRemaining()
+        let chargingDisabled = SMCComm.Power.isChargingDisabled(at: percent)
         self.chargingDisabled = chargingDisabled
         if !chargingDisabled {
             //
@@ -42,7 +43,8 @@ internal enum BTPowerState {
         // Refresh platform stated when waking from sleep, as events might not
         // fire.
         //
-        let chargingDisabled = SMCComm.Power.isChargingDisabled()
+        let (percent, _, _) = self.getPercentRemaining()
+        let chargingDisabled = SMCComm.Power.isChargingDisabled(at: percent)
         if chargingDisabled != self.chargingDisabled {
             self.chargingDisabled = chargingDisabled
 
@@ -121,11 +123,13 @@ internal enum BTPowerState {
     }
 
     static func disableCharging(percent: UInt8) -> Bool {
-        guard !self.chargingDisabled else {
+        guard !self.chargingDisabled || SMCComm.Power.usesNativeChargeLimit
+        else {
             return true
         }
 
-        let success = SMCComm.Power.disableCharging()
+        let wasDisabled = self.chargingDisabled
+        let success = SMCComm.Power.disableCharging(at: percent)
         guard success else {
             os_log("Failed to disable charging")
             return false
@@ -133,32 +137,57 @@ internal enum BTPowerState {
 
         self.chargingDisabled = true
 
-        if BTSettings.magSafeSync {
-            BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
-        }
+        if !wasDisabled {
+            if BTSettings.magSafeSync {
+                BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
+            }
 
-        GlobalSleep.restore()
+            GlobalSleep.restore()
+        }
 
         return true
     }
 
-    static func enableCharging(percent: UInt8) -> Bool {
-        guard self.chargingDisabled else {
+    static func enableCharging(percent: UInt8, target: UInt8) -> Bool {
+        guard self.chargingDisabled || SMCComm.Power.usesNativeChargeLimit
+        else {
             return true
         }
 
-        let success = SMCComm.Power.enableCharging()
+        let wasDisabled = self.chargingDisabled
+        let success = SMCComm.Power.enableCharging(target: target)
         if !success {
             os_log("Failed to enable charging")
             return false
         }
 
-        GlobalSleep.disable()
-
         self.chargingDisabled = false
 
-        if BTSettings.magSafeSync {
-            BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
+        if wasDisabled {
+            GlobalSleep.disable()
+
+            if BTSettings.magSafeSync {
+                BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
+            }
+        }
+
+        return true
+    }
+
+    static func restoreCharging(percent: UInt8) -> Bool {
+        let success = SMCComm.Power.restoreCharging()
+        guard success else {
+            os_log("Failed to restore charging")
+            return false
+        }
+
+        if self.chargingDisabled {
+            GlobalSleep.disable()
+            self.chargingDisabled = false
+
+            if BTSettings.magSafeSync {
+                BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
+            }
         }
 
         return true

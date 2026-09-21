@@ -85,6 +85,7 @@
 		CEE1655728E58DBF00DC2443 /* libSecCodeEx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1654F28E4B65B00DC2443 /* libSecCodeEx.a */; };
 		CEE4A6EE2B9B855100300506 /* IOPSPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A6ED2B9B855100300506 /* IOPSPrivate.swift */; };
 		CEECE31128BAB12000821A3B /* BTPowerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEECE31028BAB12000821A3B /* BTPowerState.swift */; };
+		D02700010000000000000001 /* NativeChargeLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02700010000000000000002 /* NativeChargeLimit.swift */; };
 		CEECE32328BB648F00821A3B /* Battery Toolkit Service.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = CEECE31828BB648F00821A3B /* Battery Toolkit Service.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEECE32828BB652400821A3B /* BTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEECE32728BB652400821A3B /* BTService.swift */; };
 		CEECE33028BB742500821A3B /* BTServiceCommProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEECE32F28BB742500821A3B /* BTServiceCommProtocol.swift */; };
@@ -182,6 +183,7 @@
 		CE37DD0B283F80960060C43F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE37DD0D283F86F90060C43F /* SMCComm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCComm.swift; sourceTree = "<group>"; };
 		CE37DD0F284164160060C43F /* SMCComm+Power.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SMCComm+Power.swift"; sourceTree = "<group>"; };
+		D02700010000000000000002 /* NativeChargeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeChargeLimit.swift; sourceTree = "<group>"; };
 		CE39744B2859E6D3002D0EC9 /* me.mhaeuser.batterytoolkitd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = me.mhaeuser.batterytoolkitd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39744C285A1D35002D0EC9 /* Battery Toolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battery Toolkit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39746D285A229F002D0EC9 /* BTActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTActions.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				CE2B96BF28A7E2BB00FE3DDB /* GlobalSleep.swift */,
 				CE37DD0D283F86F90060C43F /* SMCComm.swift */,
 				CE37DD0F284164160060C43F /* SMCComm+Power.swift */,
+				D02700010000000000000002 /* NativeChargeLimit.swift */,
 				CEE4A6ED2B9B855100300506 /* IOPSPrivate.swift */,
 				CE9E6DEB2BF106A10070ABB2 /* SMCComm+MagSafe.swift */,
 			);
@@ -705,6 +708,7 @@
 				CE8ED7F428C144EE00398581 /* BTDispatcher.swift in Sources */,
 				CEECE31128BAB12000821A3B /* BTPowerState.swift in Sources */,
 				CEA80FCC285A27D20064ADEA /* SMCComm+Power.swift in Sources */,
+				D02700010000000000000001 /* NativeChargeLimit.swift in Sources */,
 				CEA80FD6285A565C0064ADEA /* BTDaemonComm.swift in Sources */,
 				CEE4A6EE2B9B855100300506 /* IOPSPrivate.swift in Sources */,
 				CE0DB56428BEB4E600B8FC4C /* BTSettingsInfo.swift in Sources */,
@@ -999,7 +1003,10 @@
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_INCLUDE_PATHS = Modules;
+				SWIFT_INCLUDE_PATHS = (
+					Modules,
+					"Modules/NSXPCConnection+AuditToken",
+				);
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;
@@ -1133,7 +1140,10 @@
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_INCLUDE_PATHS = Modules;
+				SWIFT_INCLUDE_PATHS = (
+					Modules,
+					"Modules/NSXPCConnection+AuditToken",
+				);
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;

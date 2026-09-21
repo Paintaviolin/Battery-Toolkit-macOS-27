@@ -210,16 +210,27 @@ internal enum BTPowerEvents {
         switch self.chargingMode {
         case .toLimit:
             if percent < BTSettings.maxCharge {
-                _ = BTPowerState.enableCharging(percent: percent)
+                _ = BTPowerState.enableCharging(
+                    percent: percent,
+                    target: BTSettings.maxCharge
+                )
             }
 
         case .toFull:
             if percent < 100 {
-                _ = BTPowerState.enableCharging(percent: percent)
+                _ = BTPowerState.enableCharging(
+                    percent: percent,
+                    target: 100
+                )
             }
 
         case .standard:
-            break
+            // A native target set while on battery may now be above the
+            // current percentage. Refresh the hold before it can start an
+            // unwanted micro-charge after reconnecting power.
+            if BTPowerState.isChargingDisabled() {
+                _ = BTPowerState.disableCharging(percent: percent)
+            }
         }
 
         return true
@@ -258,7 +269,10 @@ internal enum BTPowerEvents {
                 _ = BTPowerEvents.disableCharging(percent: percent)
             }
         } else if percent < BTSettings.minCharge {
-            _ = BTPowerState.enableCharging(percent: percent)
+            _ = BTPowerState.enableCharging(
+                percent: percent,
+                target: BTSettings.maxCharge
+            )
         }
 
         return percent
@@ -313,9 +327,16 @@ internal enum BTPowerEvents {
         // Do not reset to defaults when debugging to not stress the batteries
         // of development machines.
         //
-        #if !DEBUG
-            let (percent, _, _) = BTPowerState.getPercentRemaining()
-            _ = BTPowerState.enableCharging(percent: percent)
+        let (percent, _, _) = BTPowerState.getPercentRemaining()
+        #if DEBUG
+            // Native limits persist in firmware. Always release ours even in
+            // debug builds, while preserving the legacy anti-microcharge
+            // behaviour for direct SMC control.
+            if SMCComm.Power.usesNativeChargeLimit {
+                _ = BTPowerState.restoreCharging(percent: percent)
+            }
+        #else
+            _ = BTPowerState.restoreCharging(percent: percent)
             _ = BTPowerState.enablePowerAdapter()
         #endif
         if BTSettings.magSafeSync {
@@ -339,7 +360,10 @@ internal enum BTPowerEvents {
         }
 
         if percent < limit {
-            return BTPowerState.enableCharging(percent: percent)
+            return BTPowerState.enableCharging(
+                percent: percent,
+                target: limit
+            )
         }
 
         return true
