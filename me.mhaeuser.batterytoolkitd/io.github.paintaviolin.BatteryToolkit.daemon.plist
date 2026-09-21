@@ -10,16 +10,16 @@
 		<false/>
 	</dict>
 	<key>BundleProgram</key>
-	<string>Contents/Library/LaunchServices/me.mhaeuser.batterytoolkitd</string>
+	<string>Contents/Library/LaunchServices/io.github.paintaviolin.BatteryToolkit.daemon</string>
 	<key>Label</key>
-	<string>me.mhaeuser.batterytoolkitd</string>
+	<string>io.github.paintaviolin.BatteryToolkit.daemon</string>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>EnableTransactions</key>
 	<false/>
 	<key>MachServices</key>
 	<dict>
-		<key>me.mhaeuser.batterytoolkitd</key>
+		<key>io.github.paintaviolin.BatteryToolkit.daemon</key>
 		<true/>
 	</dict>
 </dict>

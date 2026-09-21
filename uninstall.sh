@@ -8,16 +8,16 @@
 ##
 
 # Remove the Battery Toolkit daemon.
-sudo rm /Library/LaunchDaemons/me.mhaeuser.batterytoolkitd.plist
-sudo rm /Library/PrivilegedHelperTools/me.mhaeuser.batterytoolkitd
-sudo launchctl remove me.mhaeuser.batterytoolkitd
+sudo rm /Library/LaunchDaemons/io.github.paintaviolin.BatteryToolkit.daemon.plist
+sudo rm /Library/PrivilegedHelperTools/io.github.paintaviolin.BatteryToolkit.daemon
+sudo launchctl remove io.github.paintaviolin.BatteryToolkit.daemon
 
 # Remove the Battery Toolkit daemon data.
-sudo defaults delete me.mhaeuser.batterytoolkitd
-sudo security authorizationdb remove me.mhaeuser.batterytoolkitd.manage
+sudo defaults delete io.github.paintaviolin.BatteryToolkit.daemon
+sudo security authorizationdb remove io.github.paintaviolin.BatteryToolkit.daemon.manage
 
 # Remove the Battery Toolkit Autostart helper.
-launchctl remove me.mhaeuser.BatteryToolkitAutostart
+launchctl remove io.github.paintaviolin.BatteryToolkit.Autostart
 
 # Remove the Battery Toolkit app data.
-defaults remove me.mhaeuser.BatteryToolkit
+defaults remove io.github.paintaviolin.BatteryToolkit

@@ -27,8 +27,8 @@
 		CE39746E285A229F002D0EC9 /* BTActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39746D285A229F002D0EC9 /* BTActions.swift */; };
 		CE397472285A2396002D0EC9 /* BTDaemonXPCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE397471285A2396002D0EC9 /* BTDaemonXPCServer.swift */; };
 		CE397478285A25A1002D0EC9 /* BTDaemonXPCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE397477285A25A1002D0EC9 /* BTDaemonXPCClient.swift */; };
-		CE3C1D8528C7FB15008A0F7D /* me.mhaeuser.batterytoolkitd.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE675D9528C7E81600F05929 /* me.mhaeuser.batterytoolkitd.plist */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		CE3C1DA128C92A42008A0F7D /* me.mhaeuser.batterytoolkitd in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE39744B2859E6D3002D0EC9 /* me.mhaeuser.batterytoolkitd */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CE3C1D8528C7FB15008A0F7D /* io.github.paintaviolin.BatteryToolkit.daemon.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE675D9528C7E81600F05929 /* io.github.paintaviolin.BatteryToolkit.daemon.plist */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CE3C1DA128C92A42008A0F7D /* io.github.paintaviolin.BatteryToolkit.daemon in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE39744B2859E6D3002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CE3C1DA328C9329F008A0F7D /* BTDaemonManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3C1DA228C9329F008A0F7D /* BTDaemonManagement.swift */; };
 		CE3C1DA728CA33FD008A0F7D /* BTLegacyHelperInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3C1DA628CA33FD008A0F7D /* BTLegacyHelperInfo.swift */; };
 		CE3C1DA828CA33FD008A0F7D /* BTLegacyHelperInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3C1DA628CA33FD008A0F7D /* BTLegacyHelperInfo.swift */; };
@@ -125,7 +125,7 @@
 			dstPath = Contents/Library/LaunchDaemons;
 			dstSubfolderSpec = 1;
 			files = (
-				CE3C1D8528C7FB15008A0F7D /* me.mhaeuser.batterytoolkitd.plist in CopyFiles */,
+				CE3C1D8528C7FB15008A0F7D /* io.github.paintaviolin.BatteryToolkit.daemon.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +135,7 @@
 			dstPath = Contents/Library/LaunchServices;
 			dstSubfolderSpec = 1;
 			files = (
-				CE3C1DA128C92A42008A0F7D /* me.mhaeuser.batterytoolkitd in CopyFiles */,
+				CE3C1DA128C92A42008A0F7D /* io.github.paintaviolin.BatteryToolkit.daemon in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,7 +184,7 @@
 		CE37DD0D283F86F90060C43F /* SMCComm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCComm.swift; sourceTree = "<group>"; };
 		CE37DD0F284164160060C43F /* SMCComm+Power.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SMCComm+Power.swift"; sourceTree = "<group>"; };
 		D02700010000000000000002 /* NativeChargeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeChargeLimit.swift; sourceTree = "<group>"; };
-		CE39744B2859E6D3002D0EC9 /* me.mhaeuser.batterytoolkitd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = me.mhaeuser.batterytoolkitd; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE39744B2859E6D3002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = io.github.paintaviolin.BatteryToolkit.daemon; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39744C285A1D35002D0EC9 /* Battery Toolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battery Toolkit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39746D285A229F002D0EC9 /* BTActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTActions.swift; sourceTree = "<group>"; };
 		CE397471285A2396002D0EC9 /* BTDaemonXPCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDaemonXPCServer.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 		CE5E5AE728DE31EB00AF1D07 /* BTSettingsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTSettingsMenuItem.swift; sourceTree = "<group>"; };
 		CE5E5AF228DF183E00AF1D07 /* BTAuthorizationRights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAuthorizationRights.swift; sourceTree = "<group>"; };
 		CE5E5AF728DF1CB100AF1D07 /* BTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTError.swift; sourceTree = "<group>"; };
-		CE675D9528C7E81600F05929 /* me.mhaeuser.batterytoolkitd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = me.mhaeuser.batterytoolkitd.plist; sourceTree = "<group>"; };
+		CE675D9528C7E81600F05929 /* io.github.paintaviolin.BatteryToolkit.daemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = io.github.paintaviolin.BatteryToolkit.daemon.plist; sourceTree = "<group>"; };
 		CE675D9628C7E82E00F05929 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE6B75FF28BC1995008DF170 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		CE6B760328BC19C7008DF170 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -298,11 +298,11 @@
 			path = DaemonManagement;
 			sourceTree = "<group>";
 		};
-		CE3974422859E518002D0EC9 /* me.mhaeuser.batterytoolkitd */ = {
+		CE3974422859E518002D0EC9 /* Daemon Sources */ = {
 			isa = PBXGroup;
 			children = (
 				CE675D9628C7E82E00F05929 /* Info.plist */,
-				CE675D9528C7E81600F05929 /* me.mhaeuser.batterytoolkitd.plist */,
+				CE675D9528C7E81600F05929 /* io.github.paintaviolin.BatteryToolkit.daemon.plist */,
 				CE3C1D8028C7F622008A0F7D /* launchd.plist */,
 				CEA80FD7285A56B50064ADEA /* BTDaemon.swift */,
 				CEA80FD5285A565C0064ADEA /* BTDaemonComm.swift */,
@@ -337,14 +337,14 @@
 				CE6B75F728BC18DD008DF170 /* Common */,
 				CE9BD24728E8908000B6C61D /* AutostartHelper */,
 				CEECE31928BB648F00821A3B /* BatteryToolkitService */,
-				CE3974422859E518002D0EC9 /* me.mhaeuser.batterytoolkitd */,
+				CE3974422859E518002D0EC9 /* Daemon Sources */,
 				CE52867528298B6D00860C7B /* BatteryToolkit */,
 				CE3C1D8128C7F950008A0F7D /* uninstall.sh */,
 				CE3A8F6E284D26BA00A9E373 /* Frameworks */,
 				CEE1654F28E4B65B00DC2443 /* libSecCodeEx.a */,
 				CE9BD24628E8908000B6C61D /* AutostartHelper.app */,
 				CEECE31828BB648F00821A3B /* Battery Toolkit Service.xpc */,
-				CE39744B2859E6D3002D0EC9 /* me.mhaeuser.batterytoolkitd */,
+				CE39744B2859E6D3002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */,
 				CE39744C285A1D35002D0EC9 /* Battery Toolkit.app */,
 			);
 			sourceTree = "<group>";
@@ -534,9 +534,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CE3974402859E518002D0EC9 /* me.mhaeuser.batterytoolkitd */ = {
+		CE3974402859E518002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE3974452859E518002D0EC9 /* Build configuration list for PBXNativeTarget "me.mhaeuser.batterytoolkitd" */;
+			buildConfigurationList = CE3974452859E518002D0EC9 /* Build configuration list for PBXNativeTarget "io.github.paintaviolin.BatteryToolkit.daemon" */;
 			buildPhases = (
 				CE39743D2859E518002D0EC9 /* Sources */,
 				CE39743E2859E518002D0EC9 /* Frameworks */,
@@ -545,9 +545,9 @@
 			);
 			dependencies = (
 			);
-			name = me.mhaeuser.batterytoolkitd;
-			productName = batterytoolkitd;
-			productReference = CE39744B2859E6D3002D0EC9 /* me.mhaeuser.batterytoolkitd */;
+			name = io.github.paintaviolin.BatteryToolkit.daemon;
+			productName = io.github.paintaviolin.BatteryToolkit.daemon;
+			productReference = CE39744B2859E6D3002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */;
 			productType = "com.apple.product-type.tool";
 		};
 		CE52867228298B6D00860C7B /* Battery Toolkit */ = {
@@ -667,7 +667,7 @@
 				CEE1654E28E4B65B00DC2443 /* SecCodeEx */,
 				CE9BD24528E8908000B6C61D /* AutostartHelper */,
 				CEECE31728BB648F00821A3B /* Battery Toolkit Service */,
-				CE3974402859E518002D0EC9 /* me.mhaeuser.batterytoolkitd */,
+				CE3974402859E518002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */,
 				CE52867228298B6D00860C7B /* Battery Toolkit */,
 			);
 		};
@@ -794,7 +794,7 @@
 /* Begin PBXTargetDependency section */
 		CE397451285A2100002D0EC9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CE3974402859E518002D0EC9 /* me.mhaeuser.batterytoolkitd */;
+			target = CE3974402859E518002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */;
 			targetProxy = CE397450285A2100002D0EC9 /* PBXContainerItemProxy */;
 		};
 		CE9BD25928E899E600B6C61D /* PBXTargetDependency */ = {
@@ -841,16 +841,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/$(PRODUCT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_FILE = "$(SRCROOT)/me.mhaeuser.batterytoolkitd/Info.plist";
 				OTHER_LDFLAGS = (
 					"-sectcreate",
 					__TEXT,
 					__launchd_plist,
-					"$(SRCROOT)/$(PRODUCT_NAME)/launchd.plist",
+					"$(SRCROOT)/me.mhaeuser.batterytoolkitd/launchd.plist",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.batterytoolkitd;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_DAEMON_ID)";
+				PRODUCT_NAME = "$(BT_DAEMON_ID)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -859,16 +860,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/$(PRODUCT_NAME)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_FILE = "$(SRCROOT)/me.mhaeuser.batterytoolkitd/Info.plist";
 				OTHER_LDFLAGS = (
 					"-sectcreate",
 					__TEXT,
 					__launchd_plist,
-					"$(SRCROOT)/$(PRODUCT_NAME)/launchd.plist",
+					"$(SRCROOT)/me.mhaeuser.batterytoolkitd/launchd.plist",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.batterytoolkitd;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_DAEMON_ID)";
+				PRODUCT_NAME = "$(BT_DAEMON_ID)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -878,12 +880,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				BT_APP_ID = me.mhaeuser.BatteryToolkit;
-				BT_AUTOSTART_ID = me.mhaeuser.BatteryToolkitAutostart;
+				BT_APP_ID = io.github.paintaviolin.BatteryToolkit;
+				BT_AUTOSTART_ID = io.github.paintaviolin.BatteryToolkit.Autostart;
 				BT_CODESIGN_TEAM = "$(DEVELOPMENT_TEAM)";
-				BT_DAEMON_CONN = me.mhaeuser.batterytoolkitd;
-				BT_DAEMON_ID = me.mhaeuser.batterytoolkitd;
-				BT_SERVICE_ID = me.mhaeuser.BatteryToolkitService;
+				BT_DAEMON_CONN = io.github.paintaviolin.BatteryToolkit.daemon;
+				BT_DAEMON_ID = io.github.paintaviolin.BatteryToolkit.daemon;
+				BT_SERVICE_ID = io.github.paintaviolin.BatteryToolkit.Service;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1017,12 +1019,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				BT_APP_ID = me.mhaeuser.BatteryToolkit;
-				BT_AUTOSTART_ID = me.mhaeuser.BatteryToolkitAutostart;
+				BT_APP_ID = io.github.paintaviolin.BatteryToolkit;
+				BT_AUTOSTART_ID = io.github.paintaviolin.BatteryToolkit.Autostart;
 				BT_CODESIGN_TEAM = "$(DEVELOPMENT_TEAM)";
-				BT_DAEMON_CONN = me.mhaeuser.batterytoolkitd;
-				BT_DAEMON_ID = me.mhaeuser.batterytoolkitd;
-				BT_SERVICE_ID = me.mhaeuser.BatteryToolkitService;
+				BT_DAEMON_CONN = io.github.paintaviolin.BatteryToolkit.daemon;
+				BT_DAEMON_ID = io.github.paintaviolin.BatteryToolkit.daemon;
+				BT_SERVICE_ID = io.github.paintaviolin.BatteryToolkit.Service;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1159,7 +1162,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.BatteryToolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_APP_ID)";
 			};
 			name = Debug;
 		};
@@ -1174,7 +1177,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.BatteryToolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_APP_ID)";
 			};
 			name = Release;
 		};
@@ -1186,7 +1189,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSBackgroundOnly = YES;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.BatteryToolkitAutostart;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_AUTOSTART_ID)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1199,7 +1202,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSBackgroundOnly = YES;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.BatteryToolkitAutostart;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_AUTOSTART_ID)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1230,7 +1233,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BatteryToolkitService/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.BatteryToolkitService;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_SERVICE_ID)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1241,7 +1244,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BatteryToolkitService/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				PRODUCT_BUNDLE_IDENTIFIER = me.mhaeuser.BatteryToolkitService;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BT_SERVICE_ID)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1249,7 +1252,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CE3974452859E518002D0EC9 /* Build configuration list for PBXNativeTarget "me.mhaeuser.batterytoolkitd" */ = {
+		CE3974452859E518002D0EC9 /* Build configuration list for PBXNativeTarget "io.github.paintaviolin.BatteryToolkit.daemon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CE3974462859E518002D0EC9 /* Debug */,
