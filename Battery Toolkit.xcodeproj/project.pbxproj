@@ -880,8 +880,8 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BT_APP_ID = me.mhaeuser.BatteryToolkit;
 				BT_AUTOSTART_ID = me.mhaeuser.BatteryToolkitAutostart;
-				BT_CODESIGN_CN = "Apple Development: Marvin Häuser (87DYA6FH9K)";
-				BT_DAEMON_CONN = EMH49F8A2Y.me.mhaeuser.batterytoolkitd;
+				BT_CODESIGN_TEAM = "$(DEVELOPMENT_TEAM)";
+				BT_DAEMON_CONN = me.mhaeuser.batterytoolkitd;
 				BT_DAEMON_ID = me.mhaeuser.batterytoolkitd;
 				BT_SERVICE_ID = me.mhaeuser.BatteryToolkitService;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
@@ -944,7 +944,6 @@
 				CURRENT_PROJECT_VERSION = 1.9;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = EMH49F8A2Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -965,7 +964,7 @@
 					"\"BT_AUTOSTART_ID_=\\\"$(BT_AUTOSTART_ID)\\\"\"",
 					"\"BT_DAEMON_ID_=\\\"$(BT_DAEMON_ID)\\\"\"",
 					"\"BT_DAEMON_CONN_=\\\"$(BT_DAEMON_CONN)\\\"\"",
-					"\"BT_CODESIGN_CN_=\\\"$(BT_CODESIGN_CN)\\\"\"",
+					"\"BT_CODESIGN_TEAM_=\\\"$(BT_CODESIGN_TEAM)\\\"\"",
 					"\"BT_SERVICE_ID_=\\\"$(BT_SERVICE_ID)\\\"\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -994,7 +993,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Marvin Häuser. All rights reserved.";
 				LLVM_LTO = YES_THIN;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1020,8 +1019,8 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BT_APP_ID = me.mhaeuser.BatteryToolkit;
 				BT_AUTOSTART_ID = me.mhaeuser.BatteryToolkitAutostart;
-				BT_CODESIGN_CN = "Apple Development: Marvin Häuser (87DYA6FH9K)";
-				BT_DAEMON_CONN = EMH49F8A2Y.me.mhaeuser.batterytoolkitd;
+				BT_CODESIGN_TEAM = "$(DEVELOPMENT_TEAM)";
+				BT_DAEMON_CONN = me.mhaeuser.batterytoolkitd;
 				BT_DAEMON_ID = me.mhaeuser.batterytoolkitd;
 				BT_SERVICE_ID = me.mhaeuser.BatteryToolkitService;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
@@ -1084,7 +1083,6 @@
 				CURRENT_PROJECT_VERSION = 1.9;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = EMH49F8A2Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1103,7 +1101,7 @@
 					"\"BT_AUTOSTART_ID_=\\\"$(BT_AUTOSTART_ID)\\\"\"",
 					"\"BT_DAEMON_ID_=\\\"$(BT_DAEMON_ID)\\\"\"",
 					"\"BT_DAEMON_CONN_=\\\"$(BT_DAEMON_CONN)\\\"\"",
-					"\"BT_CODESIGN_CN_=\\\"$(BT_CODESIGN_CN)\\\"\"",
+					"\"BT_CODESIGN_TEAM_=\\\"$(BT_CODESIGN_TEAM)\\\"\"",
 					"\"BT_SERVICE_ID_=\\\"$(BT_SERVICE_ID)\\\"\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -1132,7 +1130,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "$(PRODUCT_NAME)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Marvin Häuser. All rights reserved.";
 				LLVM_LTO = YES_THIN;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CODE_SIGN_FLAGS = "-o hard,kill,restrict,enforce,library-validation,library,runtime";

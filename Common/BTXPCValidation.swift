@@ -151,7 +151,7 @@ internal enum BTXPCValidation {
     private static func requirementsTextFromId(identifier: String) -> String {
         let debugText = "identifier \"" + identifier + "\"" +
             " and anchor apple generic" +
-            " and certificate leaf[subject.CN] = \"" + BT_CODESIGN_CN + "\"" +
+            " and certificate leaf[subject.OU] = \"" + BT_CODESIGN_TEAM + "\"" +
             " and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */" +
             " and !(entitlement[\"com.apple.security.cs.allow-dyld-environment-variables\"] /* exists */)" +
             " and !(entitlement[\"com.apple.security.cs.disable-library-validation\"] /* exists */)" +

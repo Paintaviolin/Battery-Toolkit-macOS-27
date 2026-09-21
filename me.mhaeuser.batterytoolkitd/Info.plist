@@ -8,7 +8,7 @@
 	<string>6.0</string>
 	<key>SMAuthorizedClients</key>
 	<array>
-		<string>identifier "$(BT_APP_ID)" and anchor apple generic and certificate leaf[subject.CN] = "$(BT_CODESIGN_CN)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		<string>identifier "$(BT_APP_ID)" and anchor apple generic and certificate leaf[subject.OU] = "$(DEVELOPMENT_TEAM)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 	</array>
 </dict>
 </plist>

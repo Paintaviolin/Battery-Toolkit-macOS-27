@@ -25,8 +25,8 @@ extern const NSString *const BT_DAEMON_CONN;
 /// The Battery Toolkit Autostart identifier.
 extern const NSString *const BT_AUTOSTART_ID;
 
-/// The Battery Toolkit codesign Common Name.
-extern const NSString *const BT_CODESIGN_CN;
+/// The Battery Toolkit signing team identifier.
+extern const NSString *const BT_CODESIGN_TEAM;
 
 __END_DECLS
 
