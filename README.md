@@ -4,7 +4,7 @@
 
 <p align="center">Control the platform power state of your Apple Silicon Mac.</p>
 
-<p align="center"><a href="#features">Features</a> &bull; <a href="#install">Install</a> &bull; <a href="#usage">Usage</a> &bull; <a href="#uninstall"> Uninstall </a> &bull;<a href="#limitations"> Limitations </a> &bull; <a href="#technical-details"> Technical Details </a> &bull; <a href="#donate"> Donate </a></p>
+<p align="center"><a href="#project-status">Status</a> &bull; <a href="#features">Features</a> &bull; <a href="#compatibility">Compatibility</a> &bull; <a href="#install">Install</a> &bull; <a href="#usage">Usage</a> &bull; <a href="#uninstall">Uninstall</a> &bull; <a href="#limitations">Limitations</a> &bull; <a href="#technical-details">Technical Details</a></p>
 
 -----
 
@@ -13,6 +13,22 @@
 > [mhaeuser/Battery-Toolkit](https://github.com/mhaeuser/Battery-Toolkit),
 > focused on restoring compatibility with macOS 27. Version 1.9 is currently
 > under development and should be tested before it is used as a daily driver.
+
+# Project status
+
+The `macos-27` branch contains the version 1.9 development work. It currently:
+
+* builds with Xcode 27 and Swift 6;
+* runs its app, privileged daemon, login item, and XPC service under fork-owned
+  identifiers;
+* uses the native Manual Charge Limit backend on recent macOS firmware;
+* preserves the legacy SMC backend for older supported firmware; and
+* has been manually verified on macOS 27 for app startup, daemon communication,
+  settings changes, and charge-threshold persistence.
+
+A complete charge cycle, sleep/wake cycle, reboot, upgrade, and uninstall
+recovery still need release-candidate testing. See the
+[testing checklist](docs/TESTING.md) for the current validation status.
 
 # Features
 
@@ -49,24 +65,51 @@ The Battery Toolkit "Commands" menu and its menu bar extra allow you to issue va
 |:----------|
 | **Fig. 2**. *Menu Bar Extra* |
 
+# Compatibility
+
+| macOS version | Charge-control backend | Status |
+| --- | --- | --- |
+| 27 | Native Manual Charge Limit | Development build manually verified on Apple Silicon |
+| 26.4–26.x | Native Manual Charge Limit | Implemented, not yet manually verified by this fork |
+| 13–26.3 | Legacy SMC controls | Inherited from version 1.8; not regression-tested by this fork yet |
+
+Battery Toolkit supports Apple Silicon Macs only. Firmware capabilities can
+also differ between Mac models, so an operating-system version alone does not
+guarantee support.
+
 # Install
 
 > [!IMPORTANT]
 > Battery Toolkit currently only supports Apple Silicon Macs [#15](https://github.com/mhaeuser/Battery-Toolkit/issues/15)
 
-### Manual Install
-1. Go to this fork's GitHub [releases](https://github.com/Paintaviolin/Battery-Toolkit-macOS-27/releases) page
-2. Download the latest non-dSYM build (i.e., `Battery-Toolkit-X.Y.zip`)
-3. Unzip the archive
-4. Drag `Battery Toolkit.app` into your Applications folder
+> [!WARNING]
+> There is no public version 1.9 binary release yet. Do not download a binary
+> claiming to be this fork from another source. Until the release checklist is
+> complete, build the `macos-27` branch locally with Xcode.
+
+### Build the development version
+
+1. Install Xcode 27 or newer.
+2. Clone this repository and check out the `macos-27` branch.
+3. Open `Battery Toolkit.xcodeproj` in Xcode.
+4. Select your Apple Development team for local signing. A free Personal Team
+   is sufficient for testing on your own Mac.
+5. Build the `Battery Toolkit` scheme using the Release configuration.
+6. Copy the resulting `Battery Toolkit.app` to `/Applications` before enabling
+   its background service.
+
+If version 1.8 is already installed, follow the
+[migration guide](docs/MIGRATION.md). The original and forked background
+services use different identifiers and must not control charging at the same
+time.
 
 There is no Homebrew formula for the macOS 27 fork yet. The formula for the
 archived upstream project installs the older, incompatible build.
 
-### Opening the App
+### Opening an unnotarized build
 
 > [!IMPORTANT]
-> This step is necessary, because the app has not been notarized by Apple due to the membership fees of the Apple Developer Program. "Apple could not verify 'Battery Toolkit.app' is free of malware" refers to the [lack of notarizaion](https://support.apple.com/en-us/102445), not to any anomalies detected.
+> This step is necessary, because the app has not been notarized by Apple due to the membership fees of the Apple Developer Program. "Apple could not verify 'Battery Toolkit.app' is free of malware" refers to the [lack of notarization](https://support.apple.com/en-us/102445), not to any anomalies detected.
 
 On macOS 14 Sonoma or below:
 1. Right click `Battery Toolkit.app`
@@ -87,7 +130,7 @@ On macOS 15 Sequoia or above:
 >  Go to macOS System Settings > Battery > the (i) next to Battery Health > Optimized Battery Charging > toggle off
 
 1. Open Battery Toolkit from your Applications folder
-2. The menu bar will change to show the app menus, and a menu bar extra will should be visible
+2. The menu bar will change to show the app menus, and a menu bar extra should be visible
 3. Configure the settings through either method (see **Fig. 2, 3, 4**)
 
 |<img alt="Menu Bar Main" src="Resources/MenuBarMain.png" width=316>|<img alt="Menu Bar Extra" src="Resources/MenuBarCommands.png" width=248>|
@@ -102,13 +145,23 @@ If you want to change any settings, simply re-open the app.
 1. Focus Battery Toolkit
 2. Open the main Battery Toolkit menu in the menu bar (see **Fig. 3**)
 3. Choose "Disable Background Activity"
-4. Move the app to the Trash and empty it
+4. Wait until Battery Toolkit closes
+5. Move the app to the Trash
+
+Disabling background activity first gives the daemon an opportunity to restore
+the system charging state. Do not remove the app bundle while its background
+service is still enabled. See the [migration guide](docs/MIGRATION.md) for
+rollback instructions.
 
 # Limitations
 
 Battery Toolkit disables sleep while it is charging, because it has to actively disable charging once reaching the maximum. Sleep is re-enabled once charging is stopped for any reason, e.g., reaching the maximum charge level, manual cancellation, or unplugging the MacBook.
 
 Apps, including Battery Toolkit, cannot control the charge state when the machine is shut down. If the charger remains plugged in while the Mac is off, the battery will charge to 100&nbsp;%.
+
+The macOS 27 backend depends on an undocumented PowerUI interface. Apple may
+change it in a future macOS update. Re-test the release checklist after every
+major or beta operating-system update.
 
 Note that sleep should usually be disabled when the power adapter is disabled, as this will exit Clamshell mode and the machine will sleep immediately if the lid is closed. Refer to the toggle in the Settings dialog (see **Fig. 1**).
 
@@ -120,8 +173,8 @@ Note that sleep should usually be disabled when the power adapter is disabled, a
 * On macOS 27, uses macOS's firmware-backed Manual Charge Limit through
   PowerUIAgent preferences because the replacement SMC keys require an Apple
   private entitlement
-* Saves and restores the user's previous system charge-limit setting when the
-  app stops controlling charging
+* Saves the user's previous system charge-limit setting before taking control
+  and restores it when the daemon is stopped normally
 
 ## Security
 * Privileged operations are authenticated by the daemon
@@ -133,6 +186,3 @@ Note that sleep should usually be disabled when the power adapter is disabled, a
 * README overhauled by [rogue](https://github.com/realrogue)
 * macOS 27 charge-limit research and portions of the implementation from
   [Ampere](https://github.com/az-code-lab/ampere), used under the MIT License
-
-# Donate
-For various reasons, I will not accept personal donations. However, if you would like to support my work with the [Kinderschutzbund Kaiserslautern-Kusel](https://www.kinderschutzbund-kaiserslautern.de/) child protection association, you may donate [here](https://www.kinderschutzbund-kaiserslautern.de/helfen-sie-mit/spenden/).
