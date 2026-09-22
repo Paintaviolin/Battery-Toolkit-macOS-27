@@ -45,6 +45,15 @@ internal final class BTSettingsViewController: NSViewController {
     }
     
     @IBAction private func doneButtonAction(_: NSButton) {
+        // Clicking the button does not necessarily end editing in the active
+        // text field before this action runs. End it explicitly so the field's
+        // action validates and applies the typed value before we save.
+        if let window = self.view.window,
+           !window.makeFirstResponder(nil) {
+            NSSound.beep()
+            return
+        }
+
         let autostart = (self.autostartSwitch.state == .on)
         let success = autostart ?
         BTLoginItem.enable() :
