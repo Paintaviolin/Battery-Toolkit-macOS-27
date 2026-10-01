@@ -35,10 +35,17 @@
                                         <action selector="powerAction:" target="Svp-Rd-cF3" id="nfZ-sf-9mx"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem explicitItemIdentifier="advanced" label="Advanced" paletteLabel="Advanced" tag="-1" sizingBehavior="auto" selectable="YES" id="adv-toolbar-item">
+                                    <imageReference key="image" image="gearshape" catalog="system" symbolScale="default"/>
+                                    <connections>
+                                        <action selector="advancedAction:" target="Svp-Rd-cF3" id="adv-toolbar-action"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="ZWd-cD-Dlp"/>
                                 <toolbarItem reference="iVB-Bu-n4M"/>
+                                <toolbarItem reference="adv-toolbar-item"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -194,29 +201,6 @@
                                                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Z0P-wM-ijd">
                                                     <rect key="frame" x="20" y="121" width="455" height="5"/>
                                                 </box>
-                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gVg-BR-NcJ" userLabel="Adapter Sleep Label">
-                                                    <rect key="frame" x="18" y="100" width="415" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="411" id="4kI-hg-lpd"/>
-                                                    </constraints>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Prevent sleep when the power adapter is disabled" id="fIe-Jy-1ot">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" controlSize="mini" baseWritingDirection="leftToRight" alignment="left" state="on" translatesAutoresizingMaskIntoConstraints="NO" id="ueg-wa-VAZ">
-                                                    <rect key="frame" x="448" y="99" width="28" height="16"/>
-                                                </switch>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Kei-Vw-B1H" userLabel="Adapter Sleep Secondary Label">
-                                                    <rect key="frame" x="18" y="69" width="415" height="28"/>
-                                                    <textFieldCell key="cell" controlSize="small" selectable="YES" id="BOx-qm-k90">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <string key="title">Applies when you disable the adapter from Commands. Unplugging the cable releases this sleep prevention.</string>
-                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
                                                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4VU-bn-waD" userLabel="MagSafe Sync Label">
                                                     <rect key="frame" x="18" y="45" width="415" height="16"/>
                                                     <constraints>
@@ -266,13 +250,11 @@
                                                 <constraint firstItem="Ghe-cF-C3L" firstAttribute="leading" secondItem="4VU-bn-waD" secondAttribute="leading" id="2RH-su-Np3"/>
                                                 <constraint firstItem="nq7-TF-yL4" firstAttribute="leading" secondItem="jVr-RT-V0O" secondAttribute="trailing" id="48j-SF-AGL"/>
                                                 <constraint firstItem="cpE-XY-Cm8" firstAttribute="leading" secondItem="BRS-K5-tS0" secondAttribute="trailing" constant="5" id="5BV-JP-wks"/>
-                                                <constraint firstItem="gVg-BR-NcJ" firstAttribute="top" secondItem="Z0P-wM-ijd" secondAttribute="bottom" constant="8" symbolic="YES" id="6JY-Uc-bCv"/>
                                                 <constraint firstItem="jVr-RT-V0O" firstAttribute="centerY" secondItem="9gz-yn-SNi" secondAttribute="centerY" id="7Rl-Gj-COU"/>
                                                 <constraint firstItem="nq7-TF-yL4" firstAttribute="centerY" secondItem="9gz-yn-SNi" secondAttribute="centerY" id="8ev-xd-I2H"/>
                                                 <constraint firstItem="BRS-K5-tS0" firstAttribute="centerY" secondItem="GpU-47-1gg" secondAttribute="centerY" id="B0V-0o-CzJ"/>
-                                                <constraint firstItem="Kei-Vw-B1H" firstAttribute="leading" secondItem="gVg-BR-NcJ" secondAttribute="leading" id="BIy-17-5GJ"/>
-                                                <constraint firstItem="pwr-sl-label" firstAttribute="leading" secondItem="gVg-BR-NcJ" secondAttribute="leading" id="pwr-sl-leading"/>
-                                                <constraint firstItem="pwr-sl-label" firstAttribute="width" secondItem="gVg-BR-NcJ" secondAttribute="width" id="pwr-sl-width"/>
+                                                <constraint firstItem="pwr-sl-label" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" id="pwr-sl-leading"/>
+                                                <constraint firstItem="pwr-sl-label" firstAttribute="width" secondItem="4VU-bn-waD" secondAttribute="width" id="pwr-sl-width"/>
                                                 <constraint firstItem="pwr-sl-switch" firstAttribute="centerY" secondItem="pwr-sl-label" secondAttribute="centerY" id="pwr-sl-center"/>
                                                 <constraint firstAttribute="trailing" secondItem="pwr-sl-switch" secondAttribute="trailing" constant="20" id="pwr-sl-trailing"/>
                                                 <constraint firstItem="eKL-lO-rZG" firstAttribute="width" secondItem="pwr-sl-label" secondAttribute="width" id="pwr-sl-note-width"/>
@@ -281,15 +263,12 @@
                                                 <constraint firstItem="UVz-So-HqI" firstAttribute="leading" secondItem="GpU-47-1gg" secondAttribute="trailing" constant="8" symbolic="YES" id="GGc-ca-f1c"/>
                                                 <constraint firstItem="xbB-Gg-5TD" firstAttribute="top" secondItem="Blc-dd-9Qv" secondAttribute="top" constant="20" symbolic="YES" id="GUv-KX-cgU"/>
                                                 <constraint firstItem="GpU-47-1gg" firstAttribute="top" secondItem="xbB-Gg-5TD" secondAttribute="bottom" constant="8" symbolic="YES" id="HJY-El-CV7"/>
-                                                <constraint firstItem="Kei-Vw-B1H" firstAttribute="top" secondItem="gVg-BR-NcJ" secondAttribute="bottom" constant="3" id="HN7-MJ-nQS"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zNI-F1-3zH" secondAttribute="trailing" constant="20" symbolic="YES" id="Hq4-Jc-hce"/>
                                                 <constraint firstItem="jVr-RT-V0O" firstAttribute="width" secondItem="UVz-So-HqI" secondAttribute="width" id="Jhg-b8-0QC"/>
                                                 <constraint firstItem="kwg-mE-JId" firstAttribute="centerY" secondItem="9gz-yn-SNi" secondAttribute="centerY" id="Jti-qG-eyX"/>
-                                                <constraint firstItem="Kei-Vw-B1H" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="KRY-s2-g81"/>
                                                 <constraint firstItem="pwr-sl-label" firstAttribute="top" secondItem="nq7-TF-yL4" secondAttribute="bottom" constant="8" symbolic="YES" id="LGz-F9-lWX"/>
                                                 <constraint firstItem="Sq5-KE-c3T" firstAttribute="centerY" secondItem="4VU-bn-waD" secondAttribute="centerY" id="LTy-1O-IYQ"/>
-                                                <constraint firstItem="4VU-bn-waD" firstAttribute="top" secondItem="Kei-Vw-B1H" secondAttribute="bottom" constant="8" symbolic="YES" id="Mnj-hi-FzQ"/>
-                                                <constraint firstItem="ueg-wa-VAZ" firstAttribute="centerY" secondItem="gVg-BR-NcJ" secondAttribute="centerY" id="PTV-z9-vU7"/>
+                                                <constraint firstItem="4VU-bn-waD" firstAttribute="top" secondItem="Z0P-wM-ijd" secondAttribute="bottom" constant="8" symbolic="YES" id="Mnj-hi-FzQ"/>
                                                 <constraint firstItem="9gz-yn-SNi" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="Q20-yh-euj"/>
                                                 <constraint firstItem="Ghe-cF-C3L" firstAttribute="width" secondItem="4VU-bn-waD" secondAttribute="width" id="RqI-ZC-Kck"/>
                                                 <constraint firstAttribute="trailing" secondItem="cpE-XY-Cm8" secondAttribute="trailing" constant="20" symbolic="YES" id="Te3-hT-ilx"/>
@@ -303,23 +282,18 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xbB-Gg-5TD" secondAttribute="trailing" constant="20" symbolic="YES" id="cjw-eH-9lo"/>
                                                 <constraint firstAttribute="trailing" secondItem="Z0P-wM-ijd" secondAttribute="trailing" constant="20" symbolic="YES" id="df3-4V-POG"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ghe-cF-C3L" secondAttribute="bottom" id="ecl-uI-GWA"/>
-                                                <constraint firstAttribute="trailing" secondItem="ueg-wa-VAZ" secondAttribute="trailing" constant="20" symbolic="YES" id="f7d-Fr-Xpc"/>
                                                 <constraint firstItem="Z0P-wM-ijd" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="g5d-KP-936"/>
                                                 <constraint firstItem="Sq5-KE-c3T" firstAttribute="leading" secondItem="4VU-bn-waD" secondAttribute="trailing" constant="18" id="hDN-ZH-CZF"/>
                                                 <constraint firstItem="kwg-mE-JId" firstAttribute="leading" secondItem="nq7-TF-yL4" secondAttribute="trailing" constant="5" id="iJT-WO-ahy"/>
-                                                <constraint firstItem="Kei-Vw-B1H" firstAttribute="width" secondItem="gVg-BR-NcJ" secondAttribute="width" id="kw1-bL-IZV"/>
                                                 <constraint firstItem="Ghe-cF-C3L" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="las-Hj-6YJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="cpE-XY-Cm8" secondAttribute="trailing" constant="20" symbolic="YES" id="oke-SA-KVP"/>
                                                 <constraint firstAttribute="trailing" secondItem="kwg-mE-JId" secondAttribute="trailing" constant="20" symbolic="YES" id="qzf-2H-ZeH"/>
                                                 <constraint firstItem="jVr-RT-V0O" firstAttribute="leading" secondItem="9gz-yn-SNi" secondAttribute="trailing" constant="8" symbolic="YES" id="sfe-IQ-HFX"/>
-                                                <constraint firstItem="gVg-BR-NcJ" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="tAO-9H-ewl"/>
                                                 <constraint firstItem="zNI-F1-3zH" firstAttribute="top" secondItem="GpU-47-1gg" secondAttribute="bottom" constant="8" symbolic="YES" id="uJV-HU-RAa"/>
                                                 <constraint firstItem="Ghe-cF-C3L" firstAttribute="top" secondItem="4VU-bn-waD" secondAttribute="bottom" constant="3" id="uey-Nz-udH"/>
-                                                <constraint firstItem="ueg-wa-VAZ" firstAttribute="top" secondItem="Z0P-wM-ijd" secondAttribute="bottom" constant="8" symbolic="YES" id="x5Q-Ss-5ia"/>
                                                 <constraint firstItem="UVz-So-HqI" firstAttribute="centerY" secondItem="GpU-47-1gg" secondAttribute="centerY" id="yDc-YR-IUQ"/>
                                                 <constraint firstItem="Z0P-wM-ijd" firstAttribute="top" secondItem="eKL-lO-rZG" secondAttribute="bottom" constant="8" symbolic="YES" id="zIq-cq-EHv"/>
                                                 <constraint firstItem="zNI-F1-3zH" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="zPY-hG-OHc"/>
-                                                <constraint firstItem="ueg-wa-VAZ" firstAttribute="leading" secondItem="gVg-BR-NcJ" secondAttribute="trailing" constant="18" id="zPl-ny-cvl"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -361,6 +335,48 @@
                                                 <constraint firstAttribute="trailing" secondItem="Wvm-DK-CLx" secondAttribute="trailing" constant="20" symbolic="YES" id="is0-kH-dIf"/>
                                                 <constraint firstItem="Wvm-DK-CLx" firstAttribute="top" secondItem="j3z-8d-YbE" secondAttribute="top" constant="20" symbolic="YES" id="q46-Mu-zAe"/>
                                                 <constraint firstItem="Wvm-DK-CLx" firstAttribute="leading" secondItem="WLE-5m-DuI" secondAttribute="trailing" constant="18" id="qfh-XJ-WgY"/>
+                                            </constraints>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Advanced" identifier="" id="adv-settings-tab" userLabel="Advanced">
+                                        <view key="view" id="adv-settings-view">
+                                            <rect key="frame" x="0.0" y="0.0" width="495" height="87"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gVg-BR-NcJ" userLabel="Adapter Sleep Label">
+                                                    <rect key="frame" x="18" y="100" width="415" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="411" id="4kI-hg-lpd"/>
+                                                    </constraints>
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Prevent sleep when the power adapter is disabled" id="fIe-Jy-1ot">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" controlSize="mini" baseWritingDirection="leftToRight" alignment="left" state="on" translatesAutoresizingMaskIntoConstraints="NO" id="ueg-wa-VAZ">
+                                                    <rect key="frame" x="448" y="99" width="28" height="16"/>
+                                                </switch>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Kei-Vw-B1H" userLabel="Adapter Sleep Secondary Label">
+                                                    <rect key="frame" x="18" y="69" width="415" height="28"/>
+                                                    <textFieldCell key="cell" controlSize="small" selectable="YES" id="BOx-qm-k90">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <string key="title">Applies when you disable the adapter from Commands. Unplugging the cable releases this sleep prevention.</string>
+                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gVg-BR-NcJ" firstAttribute="top" secondItem="adv-settings-view" secondAttribute="top" constant="20" symbolic="YES" id="6JY-Uc-bCv"/>
+                                                <constraint firstItem="Kei-Vw-B1H" firstAttribute="leading" secondItem="gVg-BR-NcJ" secondAttribute="leading" id="BIy-17-5GJ"/>
+                                                <constraint firstItem="Kei-Vw-B1H" firstAttribute="top" secondItem="gVg-BR-NcJ" secondAttribute="bottom" constant="3" id="HN7-MJ-nQS"/>
+                                                <constraint firstItem="ueg-wa-VAZ" firstAttribute="centerY" secondItem="gVg-BR-NcJ" secondAttribute="centerY" id="PTV-z9-vU7"/>
+                                                <constraint firstAttribute="trailing" secondItem="ueg-wa-VAZ" secondAttribute="trailing" constant="20" symbolic="YES" id="f7d-Fr-Xpc"/>
+                                                <constraint firstItem="Kei-Vw-B1H" firstAttribute="width" secondItem="gVg-BR-NcJ" secondAttribute="width" id="kw1-bL-IZV"/>
+                                                <constraint firstItem="gVg-BR-NcJ" firstAttribute="leading" secondItem="adv-settings-view" secondAttribute="leading" constant="20" symbolic="YES" id="tAO-9H-ewl"/>
+                                                <constraint firstItem="ueg-wa-VAZ" firstAttribute="leading" secondItem="gVg-BR-NcJ" secondAttribute="trailing" constant="18" id="zPl-ny-cvl"/>
+                                                <constraint firstAttribute="bottom" secondItem="Kei-Vw-B1H" secondAttribute="bottom" constant="20" id="adv-bottom"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -418,6 +434,7 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="advancedTab" destination="adv-settings-tab" id="adv-tab-outlet"/>
                         <outlet property="adapterSleepSwitch" destination="ueg-wa-VAZ" id="3Lx-ht-YnK"/>
                         <outlet property="preventSleepOnPowerSwitch" destination="pwr-sl-switch" id="pwr-sl-outlet"/>
                         <outlet property="autostartSwitch" destination="Wvm-DK-CLx" id="76Y-hQ-vd0"/>
@@ -439,6 +456,7 @@ Gw
         </scene>
     </scenes>
     <resources>
+        <image name="gearshape" catalog="system" width="15" height="15"/>
         <image name="bolt.circle" catalog="system" width="15" height="15"/>
         <image name="person.crop.circle" catalog="system" width="15" height="15"/>
     </resources>

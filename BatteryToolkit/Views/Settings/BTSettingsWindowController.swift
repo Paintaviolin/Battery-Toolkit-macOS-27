@@ -57,6 +57,18 @@ internal final class BTSettingsWindowController: NSWindowController {
         self.window?.title = sender.label
     }
 
+    @IBAction private func advancedAction(_ sender: NSToolbarItem) {
+        guard
+            let settingsViewController =
+            self.contentViewController as? BTSettingsViewController
+        else {
+            return
+        }
+
+        settingsViewController.selectAdvancedTab()
+        self.window?.title = sender.label
+    }
+
     @IBAction private func powerAction(_ sender: NSToolbarItem) {
         guard
             let settingsViewControler =

@@ -68,7 +68,7 @@ system sleep while charging. Other apps and macOS settings can still affect
 sleep and closed-display operation. Display dimming and screen locking remain
 controlled by macOS.
 
-The existing **Prevent sleep when the power adapter is disabled** setting
+The **Prevent sleep when the power adapter is disabled** setting in **Advanced**
 applies separately to the adapter's software-disabled state while the cable is
 attached. On older firmware, Battery Toolkit must still prevent sleep during
 charging to monitor and enforce the upper limit.

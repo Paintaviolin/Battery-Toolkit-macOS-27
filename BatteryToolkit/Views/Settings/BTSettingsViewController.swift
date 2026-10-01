@@ -15,6 +15,7 @@ internal final class BTSettingsViewController: NSViewController {
     @IBOutlet private var tabView: NSTabView!
     @IBOutlet private var userTab: NSTabViewItem!
     @IBOutlet private var powerTab: NSTabViewItem!
+    @IBOutlet private var advancedTab: NSTabViewItem!
     
     @IBOutlet private var autostartSwitch: NSSwitch!
     
@@ -145,6 +146,10 @@ internal final class BTSettingsViewController: NSViewController {
     
     func selectPowerTab() {
         self.tabView.selectTabViewItem(self.powerTab)
+    }
+
+    func selectAdvancedTab() {
+        self.tabView.selectTabViewItem(self.advancedTab)
     }
     
     private func setMinCharge(value: Int) {
