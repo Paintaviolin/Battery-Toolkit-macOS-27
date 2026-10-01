@@ -46,6 +46,7 @@ internal enum BTPowerEvents {
             self.restoreDefaults()
         }
 
+        BTPowerState.releaseSleepPrevention()
         GlobalSleep.forceRestore()
         //
         // Don't free remaining resources, as we will exit anyway.
@@ -96,6 +97,14 @@ internal enum BTPowerEvents {
         }
 
         _ = self.handleChargeHysteresis()
+    }
+
+    static func sleepSettingsChanged() {
+        guard self.powerCreated else {
+            return
+        }
+
+        BTPowerState.updateSleepPrevention()
     }
 
     static func chargeToLimit() -> Bool {
@@ -158,6 +167,14 @@ internal enum BTPowerEvents {
         _ = self.handleChargeHysteresis()
     }
 
+    private static func powerConnectionHandler(token _: Int32) {
+        guard self.powerCreated else {
+            return
+        }
+
+        BTPowerState.updateSleepPrevention()
+    }
+
     private static func registerLimitedPowerHandler() -> Bool {
         guard !self.powerCreated else {
             return true
@@ -171,10 +188,6 @@ internal enum BTPowerEvents {
         // on Apple Silicon devices, where the SMC state is reset to
         // defaults when resetting the platform).
         //
-        // Initialize the sleep state based on the current platform state.
-        //
-        BTPowerState.initState()
-
         self.powerCreated = BTDispatcher.registerLimitedPowerNotification { token in
             self.limitedPowerHandler(token: token)
         }
@@ -182,12 +195,23 @@ internal enum BTPowerEvents {
             return false
         }
 
+        guard BTDispatcher.registerPowerConnectionNotification({ token in
+            self.powerConnectionHandler(token: token)
+        }) else {
+            self.unregisterLimitedPowerHandler()
+            return false
+        }
+
+        // Initialize sleep only after both subscriptions succeed.
+        BTPowerState.initState()
+
         self.handleLimitedPower()
 
         return true
     }
 
     private static func unregisterLimitedPowerHandler() {
+        BTDispatcher.unregisterPowerConnectionNotification()
         BTDispatcher.unregisterLimitedPowerNotification()
         self.powerCreated = false
     }
@@ -289,6 +313,8 @@ internal enum BTPowerEvents {
 
     private static func handleLimitedPowerGuarded() {
         assert(self.powerCreated)
+
+        BTPowerState.updateSleepPrevention()
 
         let unlimitedPower = self.drawingUnlimitedPower()
         self.unlimitedPower = unlimitedPower

@@ -4,6 +4,7 @@
 //
 
 import IOKit
+import IOKit.ps
 import notify
 import os.log
 
@@ -33,6 +34,12 @@ public enum IOPSPrivate {
         }
 
         return (packedBatteryBits & kPSTimeRemainingNotifyExternalBit) != 0
+    }
+
+    /// Adapter attachment is independent of whether charging is enabled or
+    /// the adapter has been disabled through SMC.
+    static func ExternalPowerConnected() -> Bool {
+        return IOPSCopyExternalPowerAdapterDetails()?.takeRetainedValue() != nil
     }
     
     private static func GetPackedBatteryBits() -> UInt64? {

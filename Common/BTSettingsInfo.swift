@@ -10,6 +10,7 @@ internal enum BTSettingsInfo {
         static let minCharge: UInt8 = 75
         static let maxCharge: UInt8 = 80
         static let adapterSleep = false
+        static let preventSleepOnPower = false
         static let magSafeSync = false
     }
 
@@ -22,6 +23,7 @@ internal enum BTSettingsInfo {
         static let minCharge = "MinCharge"
         static let maxCharge = "MaxCharge"
         static let adapterSleep = "AdapterSleep"
+        static let preventSleepOnPower = "PreventSleepOnPower"
         static let magSafeSync = "MagSafeSync"
     }
 

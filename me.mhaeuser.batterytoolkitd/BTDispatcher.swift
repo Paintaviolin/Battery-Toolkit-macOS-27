@@ -16,6 +16,43 @@ internal enum BTDispatcher {
     private static var powerToken: Int32 = 0
     private static var powerRegistered = false
 
+    private static var connectionToken: Int32 = 0
+    private static var connectionRegistered = false
+
+    static func registerPowerConnectionNotification(
+        _ handler: @MainActor @escaping (Int32) -> Void
+    ) -> Bool {
+        guard !self.connectionRegistered else {
+            return true
+        }
+
+        // Attachment can change without switching the active power source,
+        // for example while the adapter is disabled through SMC.
+        guard let token = self.registerDispatch(kIOPSNotifyAnyPowerSource, handler)
+        else {
+            return false
+        }
+
+        self.connectionToken = token
+        self.connectionRegistered = true
+        return true
+    }
+
+    static func unregisterPowerConnectionNotification() {
+        guard self.connectionRegistered else {
+            return
+        }
+
+        let status = notify_cancel(self.connectionToken)
+        guard status == NOTIFY_STATUS_OK else {
+            os_log("Failed to unregister power connection notification")
+            return
+        }
+
+        self.connectionRegistered = false
+        self.connectionToken = 0
+    }
+
     static func registerLimitedPowerNotification(
         _ handler: @MainActor @escaping (Int32) -> Void
     ) -> Bool {

@@ -10,26 +10,13 @@ import os.log
 internal enum BTPowerState {
     private static var chargingDisabled = false
     private static var powerDisabled = false
+    private static var sleepPrevented = false
 
     static func initState() {
         let (percent, _, _) = self.getPercentRemaining()
-        let chargingDisabled = SMCComm.Power.isChargingDisabled(at: percent)
-        self.chargingDisabled = chargingDisabled
-        if !chargingDisabled {
-            //
-            // Sleep must always be disabled when charging is enabled.
-            //
-            GlobalSleep.disable()
-        }
-
-        let powerDisabled = SMCComm.Power.isPowerAdapterDisabled()
-        self.powerDisabled = powerDisabled
-        if powerDisabled {
-            //
-            // Sleep must be disabled when external power is disabled.
-            //
-            self.disableAdapterSleep()
-        }
+        self.chargingDisabled = SMCComm.Power.isChargingDisabled(at: percent)
+        self.powerDisabled = SMCComm.Power.isPowerAdapterDisabled()
+        self.updateSleepPrevention()
 
         SMCComm.MagSafe.prepare()
 
@@ -44,27 +31,9 @@ internal enum BTPowerState {
         // fire.
         //
         let (percent, _, _) = self.getPercentRemaining()
-        let chargingDisabled = SMCComm.Power.isChargingDisabled(at: percent)
-        if chargingDisabled != self.chargingDisabled {
-            self.chargingDisabled = chargingDisabled
-
-            if chargingDisabled {
-                GlobalSleep.restore()
-            } else {
-                GlobalSleep.disable()
-            }
-        }
-
-        let powerDisabled = SMCComm.Power.isPowerAdapterDisabled()
-        if powerDisabled != self.powerDisabled {
-            self.powerDisabled = powerDisabled
-
-            if powerDisabled {
-                self.disableAdapterSleep()
-            } else {
-                self.restoreAdapterSleep()
-            }
-        }
+        self.chargingDisabled = SMCComm.Power.isChargingDisabled(at: percent)
+        self.powerDisabled = SMCComm.Power.isPowerAdapterDisabled()
+        self.updateSleepPrevention()
 
         if BTSettings.magSafeSync {
             self.syncMagSafeState()
@@ -75,19 +44,40 @@ internal enum BTPowerState {
         return IOPSPrivate.GetPercentRemaining() ?? (100, false, false)
     }
 
-    static func adapterSleepSettingToggled() {
-        //
-        // If power is disabled, toggle sleep.
-        //
-        guard self.powerDisabled else {
+    static func updateSleepPrevention() {
+        // Native limits are enforced by the system even while the daemon
+        // sleeps. Legacy SMC charging still requires active monitoring.
+        let chargingNeedsMonitoring = !SMCComm.Power.usesNativeChargeLimit &&
+            !self.chargingDisabled && !self.powerDisabled
+        let disabledAdapterNeedsAwake = self.powerDisabled &&
+            !BTSettings.adapterSleep
+        let preventSleep = IOPSPrivate.ExternalPowerConnected() &&
+            (BTSettings.preventSleepOnPower || chargingNeedsMonitoring ||
+                disabledAdapterNeedsAwake)
+
+        // Hold one sleep block for the combined policy. Repeated power events
+        // or overlapping reasons must not leave an extra block behind.
+        guard self.sleepPrevented != preventSleep else {
             return
         }
 
-        if !BTSettings.adapterSleep {
+        self.sleepPrevented = preventSleep
+        os_log("Sleep prevention: %{public}@", preventSleep ? "on" : "off")
+
+        if preventSleep {
             GlobalSleep.disable()
         } else {
             GlobalSleep.restore()
         }
+    }
+
+    static func releaseSleepPrevention() {
+        guard self.sleepPrevented else {
+            return
+        }
+
+        self.sleepPrevented = false
+        GlobalSleep.restore()
     }
 
     static func syncMagSafeStatePowerEnabled(percent: UInt8) {
@@ -136,13 +126,10 @@ internal enum BTPowerState {
         }
 
         self.chargingDisabled = true
+        self.updateSleepPrevention()
 
-        if !wasDisabled {
-            if BTSettings.magSafeSync {
-                BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
-            }
-
-            GlobalSleep.restore()
+        if !wasDisabled && BTSettings.magSafeSync {
+            BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
         }
 
         return true
@@ -162,13 +149,10 @@ internal enum BTPowerState {
         }
 
         self.chargingDisabled = false
+        self.updateSleepPrevention()
 
-        if wasDisabled {
-            GlobalSleep.disable()
-
-            if BTSettings.magSafeSync {
-                BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
-            }
+        if wasDisabled && BTSettings.magSafeSync {
+            BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
         }
 
         return true
@@ -182,13 +166,14 @@ internal enum BTPowerState {
         }
 
         if self.chargingDisabled {
-            GlobalSleep.disable()
             self.chargingDisabled = false
 
             if BTSettings.magSafeSync {
                 BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
             }
         }
+
+        self.updateSleepPrevention()
 
         return true
     }
@@ -198,12 +183,13 @@ internal enum BTPowerState {
             return true
         }
 
-        self.disableAdapterSleep()
+        // Prevent an immediate clamshell sleep during the state transition.
+        GlobalSleep.disable()
+        defer { GlobalSleep.restore() }
 
         let success = SMCComm.Power.disablePowerAdapter()
         guard success else {
             os_log("Failed to disable power adapter")
-            self.restoreAdapterSleep()
             return false
         }
 
@@ -212,6 +198,7 @@ internal enum BTPowerState {
         }
 
         self.powerDisabled = true
+        self.updateSleepPrevention()
         return true
     }
 
@@ -233,7 +220,7 @@ internal enum BTPowerState {
             BTPowerState.syncMagSafeStatePowerEnabled(percent: percent)
         }
 
-        self.restoreAdapterSleep()
+        self.updateSleepPrevention()
 
         return true
     }
@@ -244,17 +231,5 @@ internal enum BTPowerState {
 
     static func isPowerAdapterDisabled() -> Bool {
         return self.powerDisabled
-    }
-
-    private static func disableAdapterSleep() {
-        if !BTSettings.adapterSleep {
-            GlobalSleep.disable()
-        }
-    }
-
-    private static func restoreAdapterSleep() {
-        if !BTSettings.adapterSleep {
-            GlobalSleep.restore()
-        }
     }
 }

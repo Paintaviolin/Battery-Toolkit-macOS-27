@@ -22,12 +22,15 @@ The `macos-27` branch contains the version 1.9 development work. It currently:
 * runs its app, privileged daemon, login item, and XPC service under fork-owned
   identifiers;
 * uses the native Manual Charge Limit backend on recent macOS firmware;
-* preserves the legacy SMC backend for older supported firmware; and
+* preserves the legacy SMC backend for older supported firmware;
+* adds an optional **Prevent sleep while the power adapter is connected**
+  setting, independent of whether the battery is charging; and
 * has been manually verified on macOS 27 for app startup, daemon communication,
   settings changes, and charge-threshold persistence.
 
-A complete charge cycle, sleep/wake cycle, reboot, upgrade, and uninstall
-recovery still need release-candidate testing. See the
+The initial build's charging commands, adapter reconnection, sleep/wake, and
+reboot tests were reported as working by the maintainer. The new sleep option
+and uninstall recovery still need release-candidate testing. See the
 [testing checklist](docs/TESTING.md) for the current validation status.
 
 # Features
@@ -51,6 +54,24 @@ If you want to discharge the battery of your Mac, e.g., to recalibrate it, you c
 |<img alt="Power Settings" src="Resources/PowerSettings.png" width=607>|
 |:--:| 
 | **Fig. 1**. *Power Settings* |
+
+## Lets you choose whether your Mac stays awake while plugged in
+
+Version 1.9.0 adds **Prevent sleep while the power adapter is connected** to
+Power settings. It is off by default. Turn it on to keep the Mac awake while
+the adapter is attached, including when charging is stopped at the upper limit.
+Unplugging the adapter, pausing background activity, or disabling the service
+releases the app's sleep prevention. Closing the GUI alone does not pause it.
+
+With the native charge-limit backend, leaving the option off allows normal
+system sleep while charging. Other apps and macOS settings can still affect
+sleep and closed-display operation. Display dimming and screen locking remain
+controlled by macOS.
+
+The existing **Prevent sleep when the power adapter is disabled** setting
+applies separately to the adapter's software-disabled state while the cable is
+attached. On older firmware, Battery Toolkit must still prevent sleep during
+charging to monitor and enforce the upper limit.
 
 ## Grants you manual control
 
@@ -155,7 +176,16 @@ rollback instructions.
 
 # Limitations
 
-Battery Toolkit disables sleep while it is charging, because it has to actively disable charging once reaching the maximum. Sleep is re-enabled once charging is stopped for any reason, e.g., reaching the maximum charge level, manual cancellation, or unplugging the MacBook.
+On the legacy SMC backend, Battery Toolkit prevents sleep while charging to
+actively stop charging at the upper limit. The native Manual Charge Limit
+backend delegates this limit to macOS and does not require this charging-only
+sleep block. The plugged-in sleep preference applies to both backends.
+
+While the daemon is asleep, the native system limit controls charging; the
+app's lower-threshold logic runs again when it wakes. Apple's native Charge
+Limit can stop within a few percentage points of its target and may
+occasionally charge to full to maintain its battery estimates. See
+[Apple's description of Charge Limit](https://support.apple.com/en-gb/102338).
 
 Apps, including Battery Toolkit, cannot control the charge state when the machine is shut down. If the charger remains plugged in while the Mac is off, the battery will charge to 100&nbsp;%.
 

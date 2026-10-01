@@ -59,15 +59,15 @@
             <objects>
                 <viewController storyboardIdentifier="SettingsViewController" showSeguePresentationStyle="single" id="qK6-EM-YZH" userLabel="SettingsViewController" customClass="BTSettingsViewController" customModule="Battery_Toolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="IvC-q3-fvl" userLabel="Settings View">
-                        <rect key="frame" x="0.0" y="0.0" width="495" height="353"/>
+                        <rect key="frame" x="0.0" y="0.0" width="495" height="386"/>
                         <subviews>
                             <tabView allowsTruncatedLabels="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="NXG-fh-uCo">
-                                <rect key="frame" x="0.0" y="69" width="495" height="284"/>
+                                <rect key="frame" x="0.0" y="69" width="495" height="317"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Power" identifier="" id="IMi-pw-cwy" userLabel="Power">
                                         <view key="view" id="Blc-dd-9Qv">
-                                            <rect key="frame" x="0.0" y="0.0" width="495" height="284"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="495" height="317"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nq7-TF-yL4" userLabel="Max Stepper">
@@ -199,7 +199,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="411" id="4kI-hg-lpd"/>
                                                     </constraints>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Prevent your Mac from sleeping when the power adapter is disabled" id="fIe-Jy-1ot">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Prevent sleep when the power adapter is disabled" id="fIe-Jy-1ot">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -212,7 +212,7 @@
                                                     <rect key="frame" x="18" y="69" width="415" height="28"/>
                                                     <textFieldCell key="cell" controlSize="small" selectable="YES" id="BOx-qm-k90">
                                                         <font key="font" metaFont="smallSystem"/>
-                                                        <string key="title">When the lid is closed, your Mac may automatically sleep with the power adapter disabled, even if an external display is connected and turned on.</string>
+                                                        <string key="title">Applies when you disable the adapter from Commands. Unplugging the cable releases this sleep prevention.</string>
                                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -240,11 +240,22 @@
                                                 <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" controlSize="mini" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="Sq5-KE-c3T">
                                                     <rect key="frame" x="448" y="45" width="28" height="16"/>
                                                 </switch>
-                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eKL-lO-rZG" userLabel="Charging Sleep">
-                                                    <rect key="frame" x="18" y="132" width="459" height="28"/>
+                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pwr-sl-label" userLabel="Connected Power Sleep Label">
+                                                    <rect key="frame" x="18" y="176" width="415" height="16"/>
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Prevent sleep while the power adapter is connected" id="pwr-sl-cell">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" controlSize="mini" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="pwr-sl-switch">
+                                                    <rect key="frame" x="448" y="176" width="28" height="16"/>
+                                                </switch>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="eKL-lO-rZG" userLabel="Connected Power Sleep Explanation">
+                                                    <rect key="frame" x="18" y="132" width="415" height="42"/>
                                                     <textFieldCell key="cell" controlSize="small" id="1HE-SM-FyJ">
                                                         <font key="font" metaFont="smallSystem"/>
-                                                        <string key="title">Your Mac will be prevented from sleeping while charging to monitor its battery level. Sleep is enabled again once your Mac stops charging for any reason.</string>
+                                                        <string key="title">Keeps your Mac awake even when charging is on hold. Unplugging releases this block. Older firmware still stays awake while charging to enforce its limit.</string>
                                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -260,7 +271,12 @@
                                                 <constraint firstItem="nq7-TF-yL4" firstAttribute="centerY" secondItem="9gz-yn-SNi" secondAttribute="centerY" id="8ev-xd-I2H"/>
                                                 <constraint firstItem="BRS-K5-tS0" firstAttribute="centerY" secondItem="GpU-47-1gg" secondAttribute="centerY" id="B0V-0o-CzJ"/>
                                                 <constraint firstItem="Kei-Vw-B1H" firstAttribute="leading" secondItem="gVg-BR-NcJ" secondAttribute="leading" id="BIy-17-5GJ"/>
-                                                <constraint firstItem="eKL-lO-rZG" firstAttribute="leading" secondItem="9gz-yn-SNi" secondAttribute="leading" id="BY0-uc-RVE"/>
+                                                <constraint firstItem="pwr-sl-label" firstAttribute="leading" secondItem="gVg-BR-NcJ" secondAttribute="leading" id="pwr-sl-leading"/>
+                                                <constraint firstItem="pwr-sl-label" firstAttribute="width" secondItem="gVg-BR-NcJ" secondAttribute="width" id="pwr-sl-width"/>
+                                                <constraint firstItem="pwr-sl-switch" firstAttribute="centerY" secondItem="pwr-sl-label" secondAttribute="centerY" id="pwr-sl-center"/>
+                                                <constraint firstAttribute="trailing" secondItem="pwr-sl-switch" secondAttribute="trailing" constant="20" id="pwr-sl-trailing"/>
+                                                <constraint firstItem="eKL-lO-rZG" firstAttribute="width" secondItem="pwr-sl-label" secondAttribute="width" id="pwr-sl-note-width"/>
+                                                <constraint firstItem="eKL-lO-rZG" firstAttribute="top" secondItem="pwr-sl-label" secondAttribute="bottom" constant="3" id="pwr-sl-note-top"/>
                                                 <constraint firstAttribute="trailing" secondItem="Sq5-KE-c3T" secondAttribute="trailing" constant="20" symbolic="YES" id="Cto-Ja-rGl"/>
                                                 <constraint firstItem="UVz-So-HqI" firstAttribute="leading" secondItem="GpU-47-1gg" secondAttribute="trailing" constant="8" symbolic="YES" id="GGc-ca-f1c"/>
                                                 <constraint firstItem="xbB-Gg-5TD" firstAttribute="top" secondItem="Blc-dd-9Qv" secondAttribute="top" constant="20" symbolic="YES" id="GUv-KX-cgU"/>
@@ -270,7 +286,7 @@
                                                 <constraint firstItem="jVr-RT-V0O" firstAttribute="width" secondItem="UVz-So-HqI" secondAttribute="width" id="Jhg-b8-0QC"/>
                                                 <constraint firstItem="kwg-mE-JId" firstAttribute="centerY" secondItem="9gz-yn-SNi" secondAttribute="centerY" id="Jti-qG-eyX"/>
                                                 <constraint firstItem="Kei-Vw-B1H" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="KRY-s2-g81"/>
-                                                <constraint firstItem="eKL-lO-rZG" firstAttribute="top" secondItem="nq7-TF-yL4" secondAttribute="bottom" constant="8" symbolic="YES" id="LGz-F9-lWX"/>
+                                                <constraint firstItem="pwr-sl-label" firstAttribute="top" secondItem="nq7-TF-yL4" secondAttribute="bottom" constant="8" symbolic="YES" id="LGz-F9-lWX"/>
                                                 <constraint firstItem="Sq5-KE-c3T" firstAttribute="centerY" secondItem="4VU-bn-waD" secondAttribute="centerY" id="LTy-1O-IYQ"/>
                                                 <constraint firstItem="4VU-bn-waD" firstAttribute="top" secondItem="Kei-Vw-B1H" secondAttribute="bottom" constant="8" symbolic="YES" id="Mnj-hi-FzQ"/>
                                                 <constraint firstItem="ueg-wa-VAZ" firstAttribute="centerY" secondItem="gVg-BR-NcJ" secondAttribute="centerY" id="PTV-z9-vU7"/>
@@ -292,7 +308,6 @@
                                                 <constraint firstItem="Sq5-KE-c3T" firstAttribute="leading" secondItem="4VU-bn-waD" secondAttribute="trailing" constant="18" id="hDN-ZH-CZF"/>
                                                 <constraint firstItem="kwg-mE-JId" firstAttribute="leading" secondItem="nq7-TF-yL4" secondAttribute="trailing" constant="5" id="iJT-WO-ahy"/>
                                                 <constraint firstItem="Kei-Vw-B1H" firstAttribute="width" secondItem="gVg-BR-NcJ" secondAttribute="width" id="kw1-bL-IZV"/>
-                                                <constraint firstItem="kwg-mE-JId" firstAttribute="trailing" secondItem="eKL-lO-rZG" secondAttribute="trailing" id="l71-gL-9vs"/>
                                                 <constraint firstItem="Ghe-cF-C3L" firstAttribute="leading" secondItem="Blc-dd-9Qv" secondAttribute="leading" constant="20" symbolic="YES" id="las-Hj-6YJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="cpE-XY-Cm8" secondAttribute="trailing" constant="20" symbolic="YES" id="oke-SA-KVP"/>
                                                 <constraint firstAttribute="trailing" secondItem="kwg-mE-JId" secondAttribute="trailing" constant="20" symbolic="YES" id="qzf-2H-ZeH"/>
@@ -404,6 +419,7 @@ Gw
                     </view>
                     <connections>
                         <outlet property="adapterSleepSwitch" destination="ueg-wa-VAZ" id="3Lx-ht-YnK"/>
+                        <outlet property="preventSleepOnPowerSwitch" destination="pwr-sl-switch" id="pwr-sl-outlet"/>
                         <outlet property="autostartSwitch" destination="Wvm-DK-CLx" id="76Y-hQ-vd0"/>
                         <outlet property="magSafeSyncSwitch" destination="Sq5-KE-c3T" id="csD-RV-ou4"/>
                         <outlet property="maxChargeSlider" destination="9gz-yn-SNi" id="PSx-HW-ib4"/>

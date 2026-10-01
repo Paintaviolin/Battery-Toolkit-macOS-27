@@ -27,6 +27,7 @@ internal final class BTSettingsViewController: NSViewController {
     @IBOutlet private var maxChargeStepper: NSStepper!
     
     @IBOutlet private var adapterSleepSwitch: NSSwitch!
+    @IBOutlet private var preventSleepOnPowerSwitch: NSSwitch!
     @IBOutlet private var magSafeSyncSwitch: NSSwitch!
     
     private var minChargeVal = BTSettingsInfo.Defaults.minCharge
@@ -76,6 +77,9 @@ internal final class BTSettingsViewController: NSViewController {
             BTSettingsInfo.Keys.maxCharge: NSNumber(value: self.maxChargeVal),
             BTSettingsInfo.Keys.adapterSleep: NSNumber(
                 value: self.adapterSleepSwitch.state == .off
+            ),
+            BTSettingsInfo.Keys.preventSleepOnPower: NSNumber(
+                value: self.preventSleepOnPowerSwitch.state == .on
             ),
             BTSettingsInfo.Keys.magSafeSync: NSNumber(
                 value: self.magSafeSyncSwitch.state == .on
@@ -227,6 +231,11 @@ internal final class BTSettingsViewController: NSViewController {
             self.setMinCharge(value: minCharge)
             self.setMaxCharge(value: maxCharge)
             self.setAdapterSleep(value: adapterSleep)
+            let preventSleep =
+                settings[BTSettingsInfo.Keys.preventSleepOnPower] as? NSNumber
+            self.preventSleepOnPowerSwitch.state =
+                (preventSleep?.boolValue ??
+                    BTSettingsInfo.Defaults.preventSleepOnPower) ? .on : .off
             
             if let magSafeSync = magSafeSyncNum?.boolValue {
                 self.magSafeSyncSwitch.isEnabled = true
