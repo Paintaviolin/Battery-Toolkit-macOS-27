@@ -28,6 +28,9 @@ extern const NSString *const BT_AUTOSTART_ID;
 /// The Battery Toolkit signing team identifier.
 extern const NSString *const BT_CODESIGN_TEAM;
 
+/// Optional SHA-1 certificate pin for independently signed builds.
+extern const NSString *const BT_CODESIGN_CERT_SHA1;
+
 __END_DECLS
 
 #endif

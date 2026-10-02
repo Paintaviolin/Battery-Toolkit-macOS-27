@@ -11,12 +11,13 @@
 > [!NOTE]
 > This is a community-maintained fork of
 > [mhaeuser/Battery-Toolkit](https://github.com/mhaeuser/Battery-Toolkit),
-> focused on restoring compatibility with macOS 27. Version 1.9 is currently
-> under development and should be tested before it is used as a daily driver.
+> focused on restoring compatibility with macOS 27. Version 1.9.0 is the first
+> community pre-release. It is not Apple-notarized; installation on additional
+> Macs and the full recovery checklist still need testing.
 
 # Project status
 
-The `macos-27` branch contains the version 1.9 development work. It currently:
+The `macos-27` branch contains the version 1.9.0 community release work. It:
 
 * builds with Xcode 27 and Swift 6;
 * runs its app, privileged daemon, login item, and XPC service under fork-owned
@@ -30,7 +31,7 @@ The `macos-27` branch contains the version 1.9 development work. It currently:
 
 The initial build's charging commands, adapter reconnection, sleep/wake, and
 reboot tests were reported as working by the maintainer. The new sleep option
-and uninstall recovery still need release-candidate testing. See the
+and uninstall recovery still need the full release-candidate checklist. See the
 [testing checklist](docs/TESTING.md) for the current validation status.
 
 # Features
@@ -90,7 +91,7 @@ The Battery Toolkit "Commands" menu and its menu bar extra allow you to issue va
 
 | macOS version | Charge-control backend | Status |
 | --- | --- | --- |
-| 27 | Native Manual Charge Limit | Development build manually verified on Apple Silicon |
+| 27 | Native Manual Charge Limit | Pre-release manually verified on one Apple Silicon Mac |
 | 26.4–26.x | Native Manual Charge Limit | Implemented, not yet manually verified by this fork |
 | 13–26.3 | Legacy SMC controls | Inherited from version 1.8; not regression-tested by this fork yet |
 
@@ -103,10 +104,20 @@ guarantee support.
 > [!IMPORTANT]
 > Battery Toolkit currently only supports Apple Silicon Macs [#15](https://github.com/mhaeuser/Battery-Toolkit/issues/15)
 
+Download the `Battery-Toolkit-1.9.0-macOS.zip` archive from this fork's
+[GitHub Releases](https://github.com/Paintaviolin/Battery-Toolkit-macOS-27/releases).
+Extract it and move `Battery Toolkit 1.9.0.app` to `/Applications` before
+launching it. Enable its background activity when macOS asks.
+
 > [!WARNING]
-> There is no public version 1.9 binary release yet. Do not download a binary
-> claiming to be this fork from another source. Until the release checklist is
-> complete, build the `macos-27` branch locally with Xcode.
+> The public binary is independently signed with the certificate name
+> **Battery Toolkit**, not an Apple Developer ID, and is **not notarized**.
+> Its signature authenticates the app's internal components but does not make
+> it automatically trusted by Gatekeeper. Follow the per-app approval steps
+> below; do not disable Gatekeeper globally or install a root certificate.
+> This first binary is tested on macOS 27 only. See
+> [signing and release details](docs/RELEASE.md) for its certificate fingerprint,
+> build procedure, and remaining tests.
 
 ### Build the development version
 
@@ -116,7 +127,7 @@ guarantee support.
 4. Select your Apple Development team for local signing. A free Personal Team
    is sufficient for testing on your own Mac.
 5. Build the `Battery Toolkit` scheme using the Release configuration.
-6. Copy the resulting `Battery Toolkit.app` to `/Applications` before enabling
+6. Copy the resulting `Battery Toolkit 1.9.0.app` to `/Applications` before enabling
    its background service.
 
 If version 1.8 is already installed, follow the
@@ -130,10 +141,13 @@ archived upstream project installs the older, incompatible build.
 ### Opening an unnotarized build
 
 > [!IMPORTANT]
-> This step is necessary, because the app has not been notarized by Apple due to the membership fees of the Apple Developer Program. "Apple could not verify 'Battery Toolkit.app' is free of malware" refers to the [lack of notarization](https://support.apple.com/en-us/102445), not to any anomalies detected.
+> This app has not been notarized by Apple. A message saying Apple could not
+> verify the app can be caused by the lack of notarization; it is not a safety
+> guarantee. Only approve the expected archive from this fork and verify its
+> checksum. See [Apple's guidance](https://support.apple.com/en-us/102445).
 
 On macOS 14 Sonoma or below:
-1. Right click `Battery Toolkit.app`
+1. Right click `Battery Toolkit 1.9.0.app`
 2. Click "Open"
 3. Click "Open" in the dialog box
 

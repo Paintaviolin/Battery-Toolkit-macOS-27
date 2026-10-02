@@ -185,7 +185,7 @@
 		CE37DD0F284164160060C43F /* SMCComm+Power.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SMCComm+Power.swift"; sourceTree = "<group>"; };
 		D02700010000000000000002 /* NativeChargeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeChargeLimit.swift; sourceTree = "<group>"; };
 		CE39744B2859E6D3002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = io.github.paintaviolin.BatteryToolkit.daemon; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE39744C285A1D35002D0EC9 /* Battery Toolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battery Toolkit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE39744C285A1D35002D0EC9 /* Battery Toolkit 1.9.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battery Toolkit 1.9.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39746D285A229F002D0EC9 /* BTActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTActions.swift; sourceTree = "<group>"; };
 		CE397471285A2396002D0EC9 /* BTDaemonXPCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDaemonXPCServer.swift; sourceTree = "<group>"; };
 		CE397477285A25A1002D0EC9 /* BTDaemonXPCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDaemonXPCClient.swift; sourceTree = "<group>"; };
@@ -345,7 +345,7 @@
 				CE9BD24628E8908000B6C61D /* AutostartHelper.app */,
 				CEECE31828BB648F00821A3B /* Battery Toolkit Service.xpc */,
 				CE39744B2859E6D3002D0EC9 /* io.github.paintaviolin.BatteryToolkit.daemon */,
-				CE39744C285A1D35002D0EC9 /* Battery Toolkit.app */,
+				CE39744C285A1D35002D0EC9 /* Battery Toolkit 1.9.0.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -571,7 +571,7 @@
 			);
 			name = "Battery Toolkit";
 			productName = BatteryToolkit;
-			productReference = CE39744C285A1D35002D0EC9 /* Battery Toolkit.app */;
+			productReference = CE39744C285A1D35002D0EC9 /* Battery Toolkit 1.9.0.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CE9BD24528E8908000B6C61D /* AutostartHelper */ = {
@@ -883,6 +883,7 @@
 				BT_APP_ID = io.github.paintaviolin.BatteryToolkit;
 				BT_AUTOSTART_ID = io.github.paintaviolin.BatteryToolkit.Autostart;
 				BT_CODESIGN_TEAM = "$(DEVELOPMENT_TEAM)";
+				BT_CODESIGN_CERT_SHA1 = "";
 				BT_DAEMON_CONN = io.github.paintaviolin.BatteryToolkit.daemon;
 				BT_DAEMON_ID = io.github.paintaviolin.BatteryToolkit.daemon;
 				BT_SERVICE_ID = io.github.paintaviolin.BatteryToolkit.Service;
@@ -967,6 +968,7 @@
 					"\"BT_DAEMON_ID_=\\\"$(BT_DAEMON_ID)\\\"\"",
 					"\"BT_DAEMON_CONN_=\\\"$(BT_DAEMON_CONN)\\\"\"",
 					"\"BT_CODESIGN_TEAM_=\\\"$(BT_CODESIGN_TEAM)\\\"\"",
+					"\"BT_CODESIGN_CERT_SHA1_=\\\"$(BT_CODESIGN_CERT_SHA1)\\\"\"",
 					"\"BT_SERVICE_ID_=\\\"$(BT_SERVICE_ID)\\\"\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -1022,6 +1024,7 @@
 				BT_APP_ID = io.github.paintaviolin.BatteryToolkit;
 				BT_AUTOSTART_ID = io.github.paintaviolin.BatteryToolkit.Autostart;
 				BT_CODESIGN_TEAM = "$(DEVELOPMENT_TEAM)";
+				BT_CODESIGN_CERT_SHA1 = "";
 				BT_DAEMON_CONN = io.github.paintaviolin.BatteryToolkit.daemon;
 				BT_DAEMON_ID = io.github.paintaviolin.BatteryToolkit.daemon;
 				BT_SERVICE_ID = io.github.paintaviolin.BatteryToolkit.Service;
@@ -1105,6 +1108,7 @@
 					"\"BT_DAEMON_ID_=\\\"$(BT_DAEMON_ID)\\\"\"",
 					"\"BT_DAEMON_CONN_=\\\"$(BT_DAEMON_CONN)\\\"\"",
 					"\"BT_CODESIGN_TEAM_=\\\"$(BT_CODESIGN_TEAM)\\\"\"",
+					"\"BT_CODESIGN_CERT_SHA1_=\\\"$(BT_CODESIGN_CERT_SHA1)\\\"\"",
 					"\"BT_SERVICE_ID_=\\\"$(BT_SERVICE_ID)\\\"\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -1159,6 +1163,8 @@
 				CODE_SIGN_ENTITLEMENTS = BatteryToolkit/BatteryToolkit.entitlements;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/BatteryToolkit/Info.plist";
+				PRODUCT_NAME = "Battery Toolkit $(MARKETING_VERSION)";
+				PRODUCT_MODULE_NAME = Battery_Toolkit;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -1174,6 +1180,8 @@
 				CODE_SIGN_ENTITLEMENTS = BatteryToolkit/BatteryToolkit.entitlements;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/BatteryToolkit/Info.plist";
+				PRODUCT_NAME = "Battery Toolkit $(MARKETING_VERSION)";
+				PRODUCT_MODULE_NAME = Battery_Toolkit;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

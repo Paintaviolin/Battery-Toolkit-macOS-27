@@ -149,10 +149,27 @@ internal enum BTXPCValidation {
     }
 
     private static func requirementsTextFromId(identifier: String) -> String {
-        let debugText = "identifier \"" + identifier + "\"" +
-            " and anchor apple generic" +
-            " and certificate leaf[subject.OU] = \"" + BT_CODESIGN_TEAM + "\"" +
-            " and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */" +
+        let certificatePin = BT_CODESIGN_CERT_SHA1 as String
+        let signerRequirement: String
+        if certificatePin.isEmpty {
+            // Keep Apple-issued signing as the default for local Xcode builds.
+            signerRequirement = "anchor apple generic" +
+                " and certificate leaf[subject.OU] = \"" + BT_CODESIGN_TEAM + "\"" +
+                " and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */"
+        } else {
+            // Trust one exact certificate, not its freely chosen display name.
+            // Reject malformed pins rather than weakening the requirement.
+            guard certificatePin.utf8.count == 40,
+                  certificatePin.utf8.allSatisfy({
+                      (48...57).contains($0) || (65...70).contains($0) ||
+                      (97...102).contains($0)
+                  }) else {
+                return "never"
+            }
+            signerRequirement = "certificate leaf = H\"" + certificatePin + "\""
+        }
+        let debugText = "identifier \"" + identifier + "\" and " +
+            signerRequirement +
             " and !(entitlement[\"com.apple.security.cs.allow-dyld-environment-variables\"] /* exists */)" +
             " and !(entitlement[\"com.apple.security.cs.disable-library-validation\"] /* exists */)" +
             " and !(entitlement[\"com.apple.security.cs.allow-unsigned-executable-memory\"] /* exists */)" +
